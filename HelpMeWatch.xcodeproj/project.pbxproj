@@ -13,6 +13,8 @@
 		19D6AA491C935513002ECF04 /* HelpMeWatch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 19D6AA471C935513002ECF04 /* HelpMeWatch.xcdatamodeld */; };
 		19D6AA4B1C935513002ECF04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19D6AA4A1C935513002ECF04 /* Assets.xcassets */; };
 		19D6AA4E1C935513002ECF04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19D6AA4C1C935513002ECF04 /* LaunchScreen.storyboard */; };
+		19D6AA5B1C935A6C002ECF04 /* FastImageCacheHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6AA5A1C935A6C002ECF04 /* FastImageCacheHelper.swift */; };
+		532341FB2E83476E22670292 /* Pods_HelpMeWatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0A1AC255D212156747AFEF3 /* Pods_HelpMeWatch.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,10 @@
 		19D6AA4A1C935513002ECF04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		19D6AA4D1C935513002ECF04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		19D6AA4F1C935513002ECF04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		19D6AA5A1C935A6C002ECF04 /* FastImageCacheHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FastImageCacheHelper.swift; sourceTree = "<group>"; };
+		83C2D3EF7416ED10F7568ED0 /* Pods-HelpMeWatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelpMeWatch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HelpMeWatch/Pods-HelpMeWatch.debug.xcconfig"; sourceTree = "<group>"; };
+		91085B3CCC2A9594D1A1B8DF /* Pods-HelpMeWatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelpMeWatch.release.xcconfig"; path = "Pods/Target Support Files/Pods-HelpMeWatch/Pods-HelpMeWatch.release.xcconfig"; sourceTree = "<group>"; };
+		B0A1AC255D212156747AFEF3 /* Pods_HelpMeWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HelpMeWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +37,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				532341FB2E83476E22670292 /* Pods_HelpMeWatch.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00B81472BEACD213F02CA3B1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B0A1AC255D212156747AFEF3 /* Pods_HelpMeWatch.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		19D6AA341C935513002ECF04 = {
 			isa = PBXGroup;
 			children = (
 				19D6AA3F1C935513002ECF04 /* HelpMeWatch */,
 				19D6AA3E1C935513002ECF04 /* Products */,
+				6BEA8BEC9637615DBE74D25D /* Pods */,
+				00B81472BEACD213F02CA3B1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +73,65 @@
 		19D6AA3F1C935513002ECF04 /* HelpMeWatch */ = {
 			isa = PBXGroup;
 			children = (
-				19D6AA401C935513002ECF04 /* AppDelegate.swift */,
-				19D6AA421C935513002ECF04 /* ViewController.swift */,
-				19D6AA441C935513002ECF04 /* Main.storyboard */,
-				19D6AA4A1C935513002ECF04 /* Assets.xcassets */,
-				19D6AA4C1C935513002ECF04 /* LaunchScreen.storyboard */,
-				19D6AA4F1C935513002ECF04 /* Info.plist */,
-				19D6AA471C935513002ECF04 /* HelpMeWatch.xcdatamodeld */,
+				19D6AA591C9355B1002ECF04 /* Storyboards */,
+				19D6AA581C93559C002ECF04 /* Views */,
+				19D6AA571C935567002ECF04 /* Misc */,
+				19D6AA561C935558002ECF04 /* Controllers */,
+				19D6AA551C935550002ECF04 /* Models */,
 			);
 			path = HelpMeWatch;
+			sourceTree = "<group>";
+		};
+		19D6AA551C935550002ECF04 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				19D6AA471C935513002ECF04 /* HelpMeWatch.xcdatamodeld */,
+				19D6AA5A1C935A6C002ECF04 /* FastImageCacheHelper.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		19D6AA561C935558002ECF04 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				19D6AA421C935513002ECF04 /* ViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		19D6AA571C935567002ECF04 /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				19D6AA401C935513002ECF04 /* AppDelegate.swift */,
+				19D6AA4A1C935513002ECF04 /* Assets.xcassets */,
+				19D6AA4F1C935513002ECF04 /* Info.plist */,
+			);
+			name = Misc;
+			sourceTree = "<group>";
+		};
+		19D6AA581C93559C002ECF04 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		19D6AA591C9355B1002ECF04 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				19D6AA441C935513002ECF04 /* Main.storyboard */,
+				19D6AA4C1C935513002ECF04 /* LaunchScreen.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		6BEA8BEC9637615DBE74D25D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				83C2D3EF7416ED10F7568ED0 /* Pods-HelpMeWatch.debug.xcconfig */,
+				91085B3CCC2A9594D1A1B8DF /* Pods-HelpMeWatch.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +141,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 19D6AA521C935513002ECF04 /* Build configuration list for PBXNativeTarget "HelpMeWatch" */;
 			buildPhases = (
+				C2AD8E219E27D95D409DC5AD /* Check Pods Manifest.lock */,
 				19D6AA391C935513002ECF04 /* Sources */,
 				19D6AA3A1C935513002ECF04 /* Frameworks */,
 				19D6AA3B1C935513002ECF04 /* Resources */,
+				0712CC0151BC7F86F3CB374B /* Embed Pods Frameworks */,
+				BB914F7A4436CEC303168F47 /* Copy Pods Resources */,
+				19D6AA5C1C935B18002ECF04 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -99,6 +170,7 @@
 				TargetAttributes = {
 					19D6AA3C1C935513002ECF04 = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = VRYW4TD62Q;
 					};
 				};
 			};
@@ -133,6 +205,67 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0712CC0151BC7F86F3CB374B /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HelpMeWatch/Pods-HelpMeWatch-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		19D6AA5C1C935B18002ECF04 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run efc796cc9f6e7a48c6016b9778f4b4dc113b8ec4 266f2bd29d8f51c146d0e97d06358a195fd6eb7a75aa7284cde7b281078c33d6";
+		};
+		BB914F7A4436CEC303168F47 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HelpMeWatch/Pods-HelpMeWatch-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C2AD8E219E27D95D409DC5AD /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		19D6AA391C935513002ECF04 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -140,6 +273,7 @@
 			files = (
 				19D6AA431C935513002ECF04 /* ViewController.swift in Sources */,
 				19D6AA491C935513002ECF04 /* HelpMeWatch.xcdatamodeld in Sources */,
+				19D6AA5B1C935A6C002ECF04 /* FastImageCacheHelper.swift in Sources */,
 				19D6AA411C935513002ECF04 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -249,23 +383,31 @@
 		};
 		19D6AA531C935513002ECF04 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 83C2D3EF7416ED10F7568ED0 /* Pods-HelpMeWatch.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = HelpMeWatch/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.actionman.HelpMeWatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		19D6AA541C935513002ECF04 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 91085B3CCC2A9594D1A1B8DF /* Pods-HelpMeWatch.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = HelpMeWatch/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.actionman.HelpMeWatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -288,6 +430,7 @@
 				19D6AA541C935513002ECF04 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

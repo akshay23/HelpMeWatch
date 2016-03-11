@@ -1,0 +1,6 @@
+framework module Pods_HelpMeWatch {
+  umbrella header "Pods-HelpMeWatch-umbrella.h"
+
+  export *
+  module * { export * }
+}
