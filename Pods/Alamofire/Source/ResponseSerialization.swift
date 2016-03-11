@@ -94,6 +94,20 @@ extension Request {
 
         return self
     }
+  
+    public func responseImage (
+      queue queue: dispatch_queue_t? = nil,
+      completionHandler: (NSURLRequest?, NSHTTPURLResponse?, UIImage?, ErrorType?) -> Void)
+      -> Self
+    {
+      delegate.queue.addOperationWithBlock {
+        dispatch_async(queue ?? dispatch_get_main_queue()) {
+          completionHandler(self.request, self.response, UIImage(data: self.delegate.data!), self.delegate.error)
+        }
+      }
+      
+      return self
+    }
 
     /**
         Adds a handler to be called once the request has finished.

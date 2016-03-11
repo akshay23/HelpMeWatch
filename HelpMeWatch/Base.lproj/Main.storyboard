@@ -2,12 +2,14 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="HelpMeWatch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="HelpMeWatch" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -15,11 +17,49 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rrA-0W-fT0">
+                                <rect key="frame" x="40" y="40" width="520" height="400"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uX5-Of-eh5">
+                                <rect key="frame" x="259" y="519" width="82" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="La1-SK-Cno"/>
+                                    <constraint firstAttribute="width" constant="82" id="rIv-DW-6Qf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <state key="normal" title="Hit Me!"/>
+                                <connections>
+                                    <action selector="refresh:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eYC-8p-OTF"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="rrA-0W-fT0" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="4tq-VD-n0s"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="rrA-0W-fT0" secondAttribute="trailing" constant="20" id="6Ga-nM-3YW"/>
+                            <constraint firstAttribute="height" secondItem="rrA-0W-fT0" secondAttribute="height" multiplier="3:2" id="A4v-jy-f1K"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="uX5-Of-eh5" secondAttribute="bottom" constant="60" id="ASv-Rb-wgG"/>
+                            <constraint firstItem="rrA-0W-fT0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Bgk-u3-fUV"/>
+                            <constraint firstItem="rrA-0W-fT0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="IV5-a8-6sS"/>
+                            <constraint firstItem="uX5-Of-eh5" firstAttribute="top" secondItem="rrA-0W-fT0" secondAttribute="bottom" constant="60" id="VtA-Me-C6O"/>
+                            <constraint firstItem="uX5-Of-eh5" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="pic-hb-dlc"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Bgk-u3-fUV"/>
+                                <exclude reference="VtA-Me-C6O"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="hitMeButton" destination="uX5-Of-eh5" id="NWH-mw-mDP"/>
+                        <outlet property="posterImage" destination="rrA-0W-fT0" id="GDL-Go-ZYQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="340" y="388"/>
         </scene>
     </scenes>
 </document>

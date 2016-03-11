@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     FastImageCacheHelper.setUp(self)
     
     // Setup Fabric
-    Fabric.with([Crashlytics.self])
+    //Fabric.with([Crashlytics.self])
     
     return true
   }
@@ -82,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
           dict[NSLocalizedFailureReasonErrorKey] = failureReason
 
-          dict[NSUnderlyingErrorKey] = error as NSError
+          dict[NSUnderlyingErrorKey] = error as? NSError
           let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
           // Replace this with code to handle the error appropriately.
           // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
@@ -116,29 +116,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           }
       }
   }
-
 }
 
 extension AppDelegate: FICImageCacheDelegate {
   func imageCache(imageCache: FICImageCache!, wantsSourceImageForEntity entity: FICEntity!, withFormatName formatName: String!, completionBlock: FICImageRequestCompletionBlock!) {
-//    if let entity = entity as? PhotoInfo {
-//      let imageURL = entity.sourceImageURLWithFormatName(formatName)
-//      let request = NSURLRequest(URL: imageURL)
-//      
-//      entity.request = Alamofire.request(request).validate(contentType: ["image/*"]).responseImage() {
-//        (_, _, image, error) in
-//        if (error == nil) {
-//          completionBlock(image)
-//        }
-//      }
-//    }
+    if let entity = entity as? PhotoInfo {
+      let imageURL = entity.sourceImageURLWithFormatName(formatName)
+      let request = NSURLRequest(URL: imageURL)
+      
+      entity.request = Alamofire.request(request).validate(contentType: ["image/*"]).responseImage() {
+        (_, _, image, error) in
+        if (error == nil) {
+          completionBlock(image)
+        }
+      }
+    }
   }
   
   func imageCache(imageCache: FICImageCache!, cancelImageLoadingForEntity entity: FICEntity!, withFormatName formatName: String!) {
-//    if let entity = entity as? PhotoInfo, request = entity.request {
-//      request.cancel()
-//      entity.request = nil
-//    }
+    if let entity = entity as? PhotoInfo, request = entity.request {
+      request.cancel()
+      entity.request = nil
+    }
   }
   
   func imageCache(imageCache: FICImageCache!, shouldProcessAllFormatsInFamily formatFamily: String!, forEntity entity: FICEntity!) -> Bool {

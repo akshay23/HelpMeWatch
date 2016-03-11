@@ -8,25 +8,37 @@
 
 /* Begin PBXBuildFile section */
 		19D6AA411C935513002ECF04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6AA401C935513002ECF04 /* AppDelegate.swift */; };
-		19D6AA431C935513002ECF04 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6AA421C935513002ECF04 /* ViewController.swift */; };
+		19D6AA431C935513002ECF04 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6AA421C935513002ECF04 /* MainViewController.swift */; };
 		19D6AA461C935513002ECF04 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19D6AA441C935513002ECF04 /* Main.storyboard */; };
 		19D6AA491C935513002ECF04 /* HelpMeWatch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 19D6AA471C935513002ECF04 /* HelpMeWatch.xcdatamodeld */; };
 		19D6AA4B1C935513002ECF04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19D6AA4A1C935513002ECF04 /* Assets.xcassets */; };
 		19D6AA4E1C935513002ECF04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19D6AA4C1C935513002ECF04 /* LaunchScreen.storyboard */; };
 		19D6AA5B1C935A6C002ECF04 /* FastImageCacheHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6AA5A1C935A6C002ECF04 /* FastImageCacheHelper.swift */; };
+		19D6AA5E1C935E93002ECF04 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6AA5D1C935E93002ECF04 /* Reachability.swift */; };
+		19D6AA601C935EC5002ECF04 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6AA5F1C935EC5002ECF04 /* Utils.swift */; };
+		19D6AA621C936A88002ECF04 /* PhotoInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6AA611C936A87002ECF04 /* PhotoInfo.swift */; };
+		19D6AA641C936D51002ECF04 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6AA631C936D51002ECF04 /* Manager.swift */; };
+		19D6AA671C936E31002ECF04 /* TheMovieDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6AA661C936E31002ECF04 /* TheMovieDB.swift */; };
+		19D6AA691C937F9A002ECF04 /* TvShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6AA681C937F9A002ECF04 /* TvShow.swift */; };
 		532341FB2E83476E22670292 /* Pods_HelpMeWatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0A1AC255D212156747AFEF3 /* Pods_HelpMeWatch.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		19D6AA3D1C935513002ECF04 /* HelpMeWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelpMeWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		19D6AA401C935513002ECF04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		19D6AA421C935513002ECF04 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		19D6AA421C935513002ECF04 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		19D6AA451C935513002ECF04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		19D6AA481C935513002ECF04 /* HelpMeWatch.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HelpMeWatch.xcdatamodel; sourceTree = "<group>"; };
 		19D6AA4A1C935513002ECF04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		19D6AA4D1C935513002ECF04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		19D6AA4F1C935513002ECF04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		19D6AA5A1C935A6C002ECF04 /* FastImageCacheHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FastImageCacheHelper.swift; sourceTree = "<group>"; };
+		19D6AA5D1C935E93002ECF04 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		19D6AA5F1C935EC5002ECF04 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		19D6AA611C936A87002ECF04 /* PhotoInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoInfo.swift; sourceTree = "<group>"; };
+		19D6AA631C936D51002ECF04 /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
+		19D6AA661C936E31002ECF04 /* TheMovieDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheMovieDB.swift; sourceTree = "<group>"; };
+		19D6AA681C937F9A002ECF04 /* TvShow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TvShow.swift; sourceTree = "<group>"; };
 		83C2D3EF7416ED10F7568ED0 /* Pods-HelpMeWatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelpMeWatch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HelpMeWatch/Pods-HelpMeWatch.debug.xcconfig"; sourceTree = "<group>"; };
 		91085B3CCC2A9594D1A1B8DF /* Pods-HelpMeWatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelpMeWatch.release.xcconfig"; path = "Pods/Target Support Files/Pods-HelpMeWatch/Pods-HelpMeWatch.release.xcconfig"; sourceTree = "<group>"; };
 		B0A1AC255D212156747AFEF3 /* Pods_HelpMeWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HelpMeWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,6 +99,10 @@
 			children = (
 				19D6AA471C935513002ECF04 /* HelpMeWatch.xcdatamodeld */,
 				19D6AA5A1C935A6C002ECF04 /* FastImageCacheHelper.swift */,
+				19D6AA611C936A87002ECF04 /* PhotoInfo.swift */,
+				19D6AA631C936D51002ECF04 /* Manager.swift */,
+				19D6AA661C936E31002ECF04 /* TheMovieDB.swift */,
+				19D6AA681C937F9A002ECF04 /* TvShow.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -94,7 +110,7 @@
 		19D6AA561C935558002ECF04 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				19D6AA421C935513002ECF04 /* ViewController.swift */,
+				19D6AA421C935513002ECF04 /* MainViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -105,6 +121,8 @@
 				19D6AA401C935513002ECF04 /* AppDelegate.swift */,
 				19D6AA4A1C935513002ECF04 /* Assets.xcassets */,
 				19D6AA4F1C935513002ECF04 /* Info.plist */,
+				19D6AA5D1C935E93002ECF04 /* Reachability.swift */,
+				19D6AA5F1C935EC5002ECF04 /* Utils.swift */,
 			);
 			name = Misc;
 			sourceTree = "<group>";
@@ -271,10 +289,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				19D6AA431C935513002ECF04 /* ViewController.swift in Sources */,
+				19D6AA621C936A88002ECF04 /* PhotoInfo.swift in Sources */,
+				19D6AA431C935513002ECF04 /* MainViewController.swift in Sources */,
+				19D6AA691C937F9A002ECF04 /* TvShow.swift in Sources */,
+				19D6AA671C936E31002ECF04 /* TheMovieDB.swift in Sources */,
 				19D6AA491C935513002ECF04 /* HelpMeWatch.xcdatamodeld in Sources */,
+				19D6AA641C936D51002ECF04 /* Manager.swift in Sources */,
 				19D6AA5B1C935A6C002ECF04 /* FastImageCacheHelper.swift in Sources */,
+				19D6AA5E1C935E93002ECF04 /* Reachability.swift in Sources */,
 				19D6AA411C935513002ECF04 /* AppDelegate.swift in Sources */,
+				19D6AA601C935EC5002ECF04 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
