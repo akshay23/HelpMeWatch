@@ -8,11 +8,13 @@
 
 import UIKit
 import FastImageCache
+import FlatUIKit
 
 class MainViewController: UIViewController {
 
   @IBOutlet var posterImage: UIImageView!
-  @IBOutlet var hitMeButton: UIButton!
+  @IBOutlet var hitMeButton: FUIButton!
+  @IBOutlet var showTitleLabel: UILabel!
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -21,6 +23,18 @@ class MainViewController: UIViewController {
     posterImage.layer.shadowOpacity = 0.5
     posterImage.layer.shadowRadius = 5
     posterImage.layer.shadowOffset = CGSize(width: 10, height: 10)
+
+    // Set up button
+    hitMeButton.buttonColor = UIColor.turquoiseColor()
+    hitMeButton.shadowColor = UIColor.greenSeaColor()
+    hitMeButton.setTitleColor(UIColor.cloudsColor(), forState: .Normal)
+    hitMeButton.setTitleColor(UIColor.cloudsColor(), forState: .Highlighted)
+    hitMeButton.titleLabel?.font = UIFont.boldFlatFontOfSize(20)
+    hitMeButton.shadowHeight = 3.0
+    hitMeButton.cornerRadius = 6.0
+    
+    // Label
+    showTitleLabel.text = ""
   }
   
   override func viewDidAppear(animated: Bool) {
@@ -42,16 +56,25 @@ class MainViewController: UIViewController {
       if let posterImage = show.posterImage {
         sharedImageCache.retrieveImageForEntity(posterImage, withFormatName: KMBigImageFormatName, completionBlock: {
           (photoInfo, _, image) -> Void in
+          
           self.posterImage.image = image
+          if let name = show.showName {
+            self.showTitleLabel.text = name
+          }
         })
       } else {
-        self.showAlertWithMessage("Couldn't get poster", title: "Please Retry", button: "OK")
+        self.posterImage.image = UIImage(named: "NoImageFound")
+        if let name = show.showName {
+          self.showTitleLabel.text = name
+        }
       }
+      
     }
   }
+}
 
+extension MainViewController {
   @IBAction func refresh(sender: AnyObject) {
     hitMe()
   }
 }
-
