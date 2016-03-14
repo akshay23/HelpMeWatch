@@ -88,6 +88,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-HelpMeWatch/Alamofire.framework"
   install_framework "Pods-HelpMeWatch/FastImageCache.framework"
   install_framework "Pods-HelpMeWatch/FlatUIKit.framework"
+  install_framework "Pods-HelpMeWatch/LMDropdownView.framework"
   install_framework "Pods-HelpMeWatch/MBProgressHUD.framework"
   install_framework "Pods-HelpMeWatch/SwiftyJSON.framework"
 fi
@@ -96,6 +97,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-HelpMeWatch/Alamofire.framework"
   install_framework "Pods-HelpMeWatch/FastImageCache.framework"
   install_framework "Pods-HelpMeWatch/FlatUIKit.framework"
+  install_framework "Pods-HelpMeWatch/LMDropdownView.framework"
   install_framework "Pods-HelpMeWatch/MBProgressHUD.framework"
   install_framework "Pods-HelpMeWatch/SwiftyJSON.framework"
 fi

@@ -10,4 +10,5 @@ target 'HelpMeWatch' do
   pod 'Fabric'
   pod 'Crashlytics'
   pod 'MBProgressHUD'
+  pod 'LMDropdownView'
 end

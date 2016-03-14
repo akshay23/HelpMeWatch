@@ -20,6 +20,7 @@ PODS:
   - Fabric (1.6.7)
   - FastImageCache (1.5.1)
   - FlatUIKit (1.6.2)
+  - LMDropdownView (1.0.3)
   - MBProgressHUD (0.9.2)
   - SwiftyJSON (2.3.2)
 
@@ -30,6 +31,7 @@ DEPENDENCIES:
   - Fabric
   - FastImageCache
   - FlatUIKit
+  - LMDropdownView
   - MBProgressHUD
   - SwiftyJSON
 
@@ -40,6 +42,7 @@ SPEC CHECKSUMS:
   Fabric: caf7580c725e64db144f610ac65cd60956911dc7
   FastImageCache: 2e7a6f677b15336eb3d1a4092a494676256c891d
   FlatUIKit: 1b41f0d4952ce8d970d8479ce79df54a960242c4
+  LMDropdownView: f03fadfe65908c735580f63d04c47e6d7c5325f3
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 

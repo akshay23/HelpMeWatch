@@ -38,9 +38,9 @@
                                 <rect key="frame" x="40" y="84" width="520" height="366"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uX5-Of-eh5" customClass="FUIButton">
-                                <rect key="frame" x="0.0" y="560" width="600" height="40"/>
+                                <rect key="frame" x="0.0" y="555" width="600" height="45"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="La1-SK-Cno"/>
+                                    <constraint firstAttribute="height" constant="45" id="La1-SK-Cno"/>
                                     <constraint firstAttribute="width" constant="200" id="rIv-DW-6Qf"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>

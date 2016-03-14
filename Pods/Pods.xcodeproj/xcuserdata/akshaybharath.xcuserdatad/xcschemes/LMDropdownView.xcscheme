@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'DFF9F50397DFC6AEC368EE5B'
-               BlueprintName = 'FastImageCache'
+               BlueprintIdentifier = '221D812FD41952704D33D7DF'
+               BlueprintName = 'LMDropdownView'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'FastImageCache.framework'>
+               BuildableName = 'LMDropdownView.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

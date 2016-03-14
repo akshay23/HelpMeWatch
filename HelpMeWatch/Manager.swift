@@ -23,11 +23,11 @@ class Manager: NSObject {
   
   func getRandomTvShow(requestCompletion: (show: TvShow) -> Void) {
     print("Getting random TV show now")
-    getRandomPageNumber() {
+    getRandomPageNumber(false) {
       (page: Int) in
       
       print("Looking at page \(page)")
-      self.getRandomIdFromPage(page) {
+      self.getRandomIdFromPage(false, page: page) {
         (id: Int) in
         
         print("Got show id \(id)")
@@ -36,8 +36,23 @@ class Manager: NSObject {
     }
   }
   
-  func getRandomPageNumber(completion: (page: Int) -> Void) {
-    let requestURL = TheMovieDB.Router.GetTVShows
+  func getRandomMovie(requestCompletion: (movie: Movie) -> Void) {
+    print("Getting random TV show now")
+    getRandomPageNumber(true) {
+      (page: Int) in
+      
+      print("Looking at page \(page)")
+      self.getRandomIdFromPage(true, page: page) {
+        (id: Int) in
+        
+        print("Got show id \(id)")
+        self.getMovieDetailsFor(id, completion: requestCompletion)
+      }
+    }
+  }
+
+  func getRandomPageNumber(isMovie: Bool, completion: (page: Int) -> Void) {
+    let requestURL = isMovie ? TheMovieDB.Router.GetMovies : TheMovieDB.Router.GetTVShows
     print("Request URL is \(requestURL.URLRequest.URLString)")
     Alamofire.request(requestURL)
       .validate()
@@ -61,8 +76,8 @@ class Manager: NSObject {
     }
   }
   
-  func getRandomIdFromPage(page: Int, completion: (id: Int) -> Void) {
-    let requestUrl = TheMovieDB.Router.GetTVShowsInPage(page)
+  func getRandomIdFromPage(isMovie: Bool, page: Int, completion: (id: Int) -> Void) {
+    let requestUrl = isMovie ? TheMovieDB.Router.GetMoviesInPage(page) : TheMovieDB.Router.GetTVShowsInPage(page)
     print("Request URL is \(requestUrl.URLRequest.URLString)")
     Alamofire.request(requestUrl)
       .validate()
@@ -100,4 +115,22 @@ class Manager: NSObject {
         }
     }
   }
+  
+  func getMovieDetailsFor(movieId: Int, completion: (movie: Movie) -> Void) {
+    let requestUrl = TheMovieDB.Router.GetMovie(movieId)
+    print("Request URL is \(requestUrl.URLRequest.URLString)")
+    Alamofire.request(requestUrl)
+      .validate()
+      .responseJSON() {
+        (result) in
+        
+        if (result.result.isSuccess) {
+          let json = JSON(result.result.value!)
+          completion(movie: Movie(movieDetails: json))
+        } else {
+          print(result.debugDescription)
+        }
+    }
+  }
+
 }
