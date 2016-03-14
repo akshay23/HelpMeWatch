@@ -30,8 +30,7 @@ class MainViewController: UIViewController {
     hitMeButton.setTitleColor(UIColor.cloudsColor(), forState: .Normal)
     hitMeButton.setTitleColor(UIColor.cloudsColor(), forState: .Highlighted)
     hitMeButton.titleLabel?.font = UIFont.boldFlatFontOfSize(20)
-    hitMeButton.shadowHeight = 3.0
-    hitMeButton.cornerRadius = 6.0
+    hitMeButton.shadowHeight = 5.0
     
     // Label
     showTitleLabel.text = ""

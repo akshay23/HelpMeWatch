@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rfV-dh-Nj6">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="WjT-bz-fYv">
+            <objects>
+                <navigationController id="rfV-dh-Nj6" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SsK-br-mCf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="HiM-2K-jgW"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bRM-E5-8Om" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-46" y="132"/>
+        </scene>
         <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -19,10 +35,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rrA-0W-fT0">
-                                <rect key="frame" x="40" y="40" width="520" height="410"/>
+                                <rect key="frame" x="40" y="84" width="520" height="366"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uX5-Of-eh5" customClass="FUIButton">
-                                <rect key="frame" x="200" y="540" width="200" height="40"/>
+                                <rect key="frame" x="0.0" y="560" width="600" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="La1-SK-Cno"/>
                                     <constraint firstAttribute="width" constant="200" id="rIv-DW-6Qf"/>
@@ -31,6 +47,11 @@
                                 <state key="normal" title="Hit Me!">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="rIv-DW-6Qf"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <action selector="refresh:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eYC-8p-OTF"/>
                                 </connections>
@@ -50,7 +71,7 @@
                             <constraint firstItem="rrA-0W-fT0" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="4tq-VD-n0s"/>
                             <constraint firstAttribute="trailingMargin" secondItem="rrA-0W-fT0" secondAttribute="trailing" constant="20" id="6Ga-nM-3YW"/>
                             <constraint firstAttribute="height" secondItem="rrA-0W-fT0" secondAttribute="height" multiplier="3:2" id="A4v-jy-f1K"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="uX5-Of-eh5" secondAttribute="bottom" constant="20" id="ASv-Rb-wgG"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="uX5-Of-eh5" secondAttribute="bottom" id="ASv-Rb-wgG"/>
                             <constraint firstItem="rrA-0W-fT0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Bgk-u3-fUV"/>
                             <constraint firstItem="rrA-0W-fT0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="IV5-a8-6sS"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="rrA-0W-fT0" secondAttribute="bottom" constant="150" id="Iiw-hz-5QL"/>
@@ -58,6 +79,7 @@
                             <constraint firstItem="uX5-Of-eh5" firstAttribute="top" secondItem="rrA-0W-fT0" secondAttribute="bottom" constant="60" id="VtA-Me-C6O"/>
                             <constraint firstAttribute="trailingMargin" secondItem="6i5-nq-1pd" secondAttribute="trailing" constant="20" id="ayG-Ch-2Gw"/>
                             <constraint firstItem="6i5-nq-1pd" firstAttribute="top" secondItem="rrA-0W-fT0" secondAttribute="bottom" constant="30" id="eJ8-GZ-VXG"/>
+                            <constraint firstItem="uX5-Of-eh5" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="fob-HD-nLv"/>
                             <constraint firstItem="uX5-Of-eh5" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="pic-hb-dlc"/>
                         </constraints>
                         <variation key="default">
@@ -68,6 +90,7 @@
                             </mask>
                         </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="Gbn-9n-Bse"/>
                     <connections>
                         <outlet property="hitMeButton" destination="uX5-Of-eh5" id="NWH-mw-mDP"/>
                         <outlet property="posterImage" destination="rrA-0W-fT0" id="GDL-Go-ZYQ"/>
@@ -76,7 +99,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="340" y="388"/>
+            <point key="canvasLocation" x="700" y="132"/>
         </scene>
     </scenes>
 </document>
