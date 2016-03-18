@@ -10,6 +10,7 @@ import UIKit
 import FastImageCache
 import FlatUIKit
 import LMDropdownView
+import MBProgressHUD
 
 class MainViewController: UIViewController {
 
@@ -80,6 +81,8 @@ class MainViewController: UIViewController {
   func hitMe() {
     let sharedImageCache = FICImageCache.sharedImageCache()
     
+    MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+    
     if (isCurrentTypeMovies) {
       Manager.sharedInstance.getRandomMovie() {
         (movie: Movie) in
@@ -91,12 +94,14 @@ class MainViewController: UIViewController {
             self.posterImage.image = image
             if let name = movie.movieName {
               self.showTitleLabel.text = name
+              MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
             }
           })
         } else {
           self.posterImage.image = UIImage(named: "NoImageFound")
           if let name = movie.movieName {
             self.showTitleLabel.text = name
+            MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
           }
         }
       }
@@ -111,12 +116,14 @@ class MainViewController: UIViewController {
             self.posterImage.image = image
             if let name = show.showName {
               self.showTitleLabel.text = name
+              MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
             }
           })
         } else {
           self.posterImage.image = UIImage(named: "NoImageFound")
           if let name = show.showName {
             self.showTitleLabel.text = name
+            MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
           }
         }
       }
