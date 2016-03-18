@@ -21,38 +21,23 @@ class Manager: NSObject {
     return Static.instance
   }
   
-  func getRandomTvShow(requestCompletion: (show: TvShow) -> Void) {
+  func getRandomMovieDBEntity(isMovie: Bool, requestCompletion: (entity: MovieDBEntity) -> Void) {
     print("Getting random TV show now")
-    getRandomPageNumber(false) {
+    getRandomPageNumber(isMovie) {
       (page: Int) in
       
       print("Looking at page \(page)")
-      self.getRandomIdFromPage(false, page: page) {
+      self.getRandomIdFromPage(isMovie, page: page) {
         (id: Int) in
         
         print("Got show id \(id)")
-        self.getShowDetailsFor(id, completion: requestCompletion)
-      }
-    }
-  }
-  
-  func getRandomMovie(requestCompletion: (movie: Movie) -> Void) {
-    print("Getting random TV show now")
-    getRandomPageNumber(true) {
-      (page: Int) in
-      
-      print("Looking at page \(page)")
-      self.getRandomIdFromPage(true, page: page) {
-        (id: Int) in
-        
-        print("Got show id \(id)")
-        self.getMovieDetailsFor(id, completion: requestCompletion)
+        self.getEntityDetailsWithId(id, isMovie: isMovie, completion: requestCompletion)
       }
     }
   }
 
   func getRandomPageNumber(isMovie: Bool, completion: (page: Int) -> Void) {
-    let requestURL = isMovie ? TheMovieDB.Router.GetMovies : TheMovieDB.Router.GetTVShows
+    let requestURL = TheMovieDB.Router.GetEntities(isMovie)
     print("Request URL is \(requestURL.URLRequest.URLString)")
     Alamofire.request(requestURL)
       .validate()
@@ -77,7 +62,7 @@ class Manager: NSObject {
   }
   
   func getRandomIdFromPage(isMovie: Bool, page: Int, completion: (id: Int) -> Void) {
-    let requestUrl = isMovie ? TheMovieDB.Router.GetMoviesInPage(page) : TheMovieDB.Router.GetTVShowsInPage(page)
+    let requestUrl = TheMovieDB.Router.GetEntitiesInPage(page, isMovie)
     print("Request URL is \(requestUrl.URLRequest.URLString)")
     Alamofire.request(requestUrl)
       .validate()
@@ -99,8 +84,8 @@ class Manager: NSObject {
     }
   }
   
-  func getShowDetailsFor(showId: Int, completion: (show: TvShow) -> Void) {
-    let requestUrl = TheMovieDB.Router.GetTVShow(showId)
+  func getEntityDetailsWithId(id: Int, isMovie: Bool, completion: (entity: MovieDBEntity) -> Void) {
+    let requestUrl = TheMovieDB.Router.GetEntityWithId(id, isMovie)
     print("Request URL is \(requestUrl.URLRequest.URLString)")
     Alamofire.request(requestUrl)
       .validate()
@@ -109,28 +94,14 @@ class Manager: NSObject {
         
         if (result.result.isSuccess) {
           let json = JSON(result.result.value!)
-          completion(show: TvShow(showDetails: json))
+          if (isMovie) {
+            completion(entity: Movie(movieDetails: json))
+          } else {
+            completion(entity: TvShow(showDetails: json))
+          }
         } else {
           print(result.debugDescription)
         }
     }
   }
-  
-  func getMovieDetailsFor(movieId: Int, completion: (movie: Movie) -> Void) {
-    let requestUrl = TheMovieDB.Router.GetMovie(movieId)
-    print("Request URL is \(requestUrl.URLRequest.URLString)")
-    Alamofire.request(requestUrl)
-      .validate()
-      .responseJSON() {
-        (result) in
-        
-        if (result.result.isSuccess) {
-          let json = JSON(result.result.value!)
-          completion(movie: Movie(movieDetails: json))
-        } else {
-          print(result.debugDescription)
-        }
-    }
-  }
-
 }

@@ -12,18 +12,29 @@ import SwiftyJSON
 class TvShow: NSObject {
   
   let imagePrefix = "https://image.tmdb.org/t/p/w500"
-  var posterImage: PhotoInfo?
-  var showName: String?
+  let showDetails: JSON!
   
   init(showDetails: JSON) {
+    self.showDetails = showDetails
+  }
+}
+
+extension TvShow: MovieDBEntity {
+  func getName() -> String {
+    if let name = showDetails["name"].string {
+      return name
+    } else {
+      return "(Unknown Title)"
+    }
+  }
+  
+  func getPosterImage() -> PhotoInfo? {
     if let posterPath = showDetails["poster_path"].string {
       let posterImageURL = NSURL(string: "\(imagePrefix)\(posterPath)")
-      print("Poster image is \(posterImageURL?.URLString)")
-      posterImage = PhotoInfo(sourceImageURL: posterImageURL!)
+      print("Poster image is \(posterImageURL!.URLString)")
+      return PhotoInfo(sourceImageURL: posterImageURL!)
     }
-    
-    if let name = showDetails["name"].string {
-      showName = name
-    }
+
+    return nil
   }
 }

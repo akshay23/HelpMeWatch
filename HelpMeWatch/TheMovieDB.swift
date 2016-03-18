@@ -14,44 +14,29 @@ struct TheMovieDB {
     static let baseURLString = "https://api.themoviedb.org"
     static let apiKey = "f7b7d80cdbf9b068e0db896b05f27c74"
 
-    case GetTVShows
-    case GetTVShowsInPage(Int)
-    case GetTVShow(Int)
-    case GetMovies
-    case GetMoviesInPage(Int)
-    case GetMovie(Int)
+    case GetEntities(Bool)
+    case GetEntitiesInPage(Int, Bool)
+    case GetEntityWithId(Int, Bool)
     
     var URLRequest: NSMutableURLRequest {
       let (path, parameters): (String, [String: AnyObject]) = {
         switch self {
-        case .GetTVShows:
+        case .GetEntities (let isMovie):
+          let type = isMovie ? "movie" : "tv"
           let params = ["api_key": Router.apiKey]
-          let pathString = "/3/discover/tv"
+          let pathString = "/3/discover/\(type)"
           return (pathString, params)
           
-        case .GetTVShowsInPage (let page):
+        case .GetEntitiesInPage (let page, let isMovie):
+          let type = isMovie ? "movie" : "tv"
           let params = ["api_key": Router.apiKey, "page": page]
-          let pathString = "/3/discover/tv"
+          let pathString = "/3/discover/\(type)"
           return (pathString, params as! [String : AnyObject])
-          
-        case .GetTVShow (let showId):
+        
+        case .GetEntityWithId (let id, let isMovie):
+          let type = isMovie ? "movie" : "tv"
           let params = ["api_key": Router.apiKey]
-          let pathString = "/3/tv/\(showId)"
-          return (pathString, params)
-          
-        case .GetMovies:
-          let params = ["api_key": Router.apiKey]
-          let pathString = "/3/discover/movie"
-          return (pathString, params)
-          
-        case .GetMoviesInPage (let page):
-          let params = ["api_key": Router.apiKey, "page": page]
-          let pathString = "/3/discover/movie"
-          return (pathString, params as! [String : AnyObject])
-          
-        case .GetMovie (let movieId):
-          let params = ["api_key": Router.apiKey]
-          let pathString = "/3/movie/\(movieId)"
+          let pathString = "/3/\(type)/\(id)"
           return (pathString, params)
       }
       }()

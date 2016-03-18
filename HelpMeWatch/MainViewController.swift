@@ -83,49 +83,21 @@ class MainViewController: UIViewController {
     
     MBProgressHUD.showHUDAddedTo(self.view, animated: true)
     
-    if (isCurrentTypeMovies) {
-      Manager.sharedInstance.getRandomMovie() {
-        (movie: Movie) in
+    Manager.sharedInstance.getRandomMovieDBEntity(isCurrentTypeMovies) {
+      (entity: MovieDBEntity) in
         
-        if let posterImage = movie.posterImage {
-          sharedImageCache.retrieveImageForEntity(posterImage, withFormatName: KMBigImageFormatName, completionBlock: {
-            (photoInfo, _, image) -> Void in
+      if let posterImage = entity.getPosterImage()  {
+        sharedImageCache.retrieveImageForEntity(posterImage, withFormatName: KMBigImageFormatName, completionBlock: {
+          (photoInfo, _, image) -> Void in
             
-            self.posterImage.image = image
-            if let name = movie.movieName {
-              self.showTitleLabel.text = name
-              MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-            }
-          })
-        } else {
-          self.posterImage.image = UIImage(named: "NoImageFound")
-          if let name = movie.movieName {
-            self.showTitleLabel.text = name
-            MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-          }
-        }
-      }
-    } else {
-      Manager.sharedInstance.getRandomTvShow() {
-        (show: TvShow) in
-        
-        if let posterImage = show.posterImage {
-          sharedImageCache.retrieveImageForEntity(posterImage, withFormatName: KMBigImageFormatName, completionBlock: {
-            (photoInfo, _, image) -> Void in
-            
-            self.posterImage.image = image
-            if let name = show.showName {
-              self.showTitleLabel.text = name
-              MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-            }
-          })
-        } else {
-          self.posterImage.image = UIImage(named: "NoImageFound")
-          if let name = show.showName {
-            self.showTitleLabel.text = name
-            MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-          }
-        }
+          self.posterImage.image = image
+          self.showTitleLabel.text = entity.getName()
+          MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+        })
+      } else {
+        self.posterImage.image = UIImage(named: "NoImageFound")
+        self.showTitleLabel.text = entity.getName()
+        MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
       }
     }
   }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1976556A1C9C99150054C975 /* MovieDBEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197655691C9C99150054C975 /* MovieDBEntity.swift */; };
 		19D6AA411C935513002ECF04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6AA401C935513002ECF04 /* AppDelegate.swift */; };
 		19D6AA431C935513002ECF04 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6AA421C935513002ECF04 /* MainViewController.swift */; };
 		19D6AA461C935513002ECF04 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19D6AA441C935513002ECF04 /* Main.storyboard */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		197655691C9C99150054C975 /* MovieDBEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieDBEntity.swift; sourceTree = "<group>"; };
 		19D6AA3D1C935513002ECF04 /* HelpMeWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelpMeWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		19D6AA401C935513002ECF04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		19D6AA421C935513002ECF04 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				19D6AA661C936E31002ECF04 /* TheMovieDB.swift */,
 				19D6AA681C937F9A002ECF04 /* TvShow.swift */,
 				19D6AA6A1C9764D2002ECF04 /* Movie.swift */,
+				197655691C9C99150054C975 /* MovieDBEntity.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				19D6AA691C937F9A002ECF04 /* TvShow.swift in Sources */,
 				19D6AA671C936E31002ECF04 /* TheMovieDB.swift in Sources */,
 				19D6AA491C935513002ECF04 /* HelpMeWatch.xcdatamodeld in Sources */,
+				1976556A1C9C99150054C975 /* MovieDBEntity.swift in Sources */,
 				19D6AA641C936D51002ECF04 /* Manager.swift in Sources */,
 				19D6AA5B1C935A6C002ECF04 /* FastImageCacheHelper.swift in Sources */,
 				19D6AA5E1C935E93002ECF04 /* Reachability.swift in Sources */,
