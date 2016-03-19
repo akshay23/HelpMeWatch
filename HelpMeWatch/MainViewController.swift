@@ -70,12 +70,26 @@ class MainViewController: UIViewController {
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
     
+    // For shake gesture
+    becomeFirstResponder()
+    
     // Get new show or movie
     helpMeWatch()
   }
 
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
+  }
+  
+  override func canBecomeFirstResponder() -> Bool {
+    return true
+  }
+  
+  override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
+    if motion == .MotionShake {
+      print("Shake detected")
+      helpMeWatch()
+    }
   }
   
   func helpMeWatch() {
