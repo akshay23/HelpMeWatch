@@ -15,7 +15,6 @@ import MBProgressHUD
 class MainViewController: UIViewController {
 
   @IBOutlet var posterImage: UIImageView!
-  @IBOutlet var hitMeButton: FUIButton!
   @IBOutlet var showTitleLabel: UILabel!
   
   var types: [String] = ["TV Shows", "Movies"]
@@ -30,55 +29,56 @@ class MainViewController: UIViewController {
     posterImage.layer.shadowOpacity = 0.5
     posterImage.layer.shadowRadius = 5
     posterImage.layer.shadowOffset = CGSize(width: 10, height: 10)
-
-    // Set up button
-    hitMeButton.buttonColor = UIColor.turquoiseColor()
-    hitMeButton.shadowColor = UIColor.greenSeaColor()
-    hitMeButton.setTitleColor(UIColor.cloudsColor(), forState: .Normal)
-    hitMeButton.setTitleColor(UIColor.cloudsColor(), forState: .Highlighted)
-    hitMeButton.titleLabel!.font = UIFont.boldSystemFontOfSize(20)
-    hitMeButton.shadowHeight = 5.0
     
     // Initialize types table
     initializeTypesTable()
     
+    // Add left button navi
+    let typeButton = UIBarButtonItem(image: UIImage(named: "ChangeIcon"), style: .Plain, target: self, action: "chooseType:")
+    typeButton.configureFlatButtonWithColor(UIColor.midnightBlueColor(), highlightedColor: UIColor.wetAsphaltColor(), cornerRadius: 2.0)
+    typeButton.tintColor = UIColor.cloudsColor()
+    navigationItem.setLeftBarButtonItem(typeButton, animated: true)
+    
+    // Add right button
+    let filterButton = UIBarButtonItem(image: UIImage(named: "FilterIcon"), style: .Plain, target: self, action: "changeFilters:")
+    filterButton.configureFlatButtonWithColor(UIColor.midnightBlueColor(), highlightedColor: UIColor.wetAsphaltColor(), cornerRadius: 2.0)
+    filterButton.tintColor = UIColor.cloudsColor()
+    navigationItem.setRightBarButtonItem(filterButton, animated: true)
+    
     // Add button to center of navi
-    let typeButton = FUIButton()
-    typeButton.buttonColor = UIColor.wetAsphaltColor()
-    typeButton.shadowColor = UIColor.midnightBlueColor()
-    typeButton.setTitleColor(UIColor.cloudsColor(), forState: .Normal)
-    typeButton.setTitleColor(UIColor.cloudsColor(), forState: .Highlighted)
-    typeButton.titleLabel!.font = UIFont.boldSystemFontOfSize(15)
-    typeButton.shadowHeight = 4.0
-    typeButton.cornerRadius = 2.0
-    typeButton.frame = CGRectMake(0, 0, 150, 30)
-    typeButton.setTitle("Change Type", forState: .Normal)
-    typeButton.addTarget(self, action: "chooseType:", forControlEvents: .TouchUpInside)
-    navigationItem.titleView = typeButton
+    let hitMeButton = FUIButton()
+    hitMeButton.frame = CGRectMake(0, 0, 150, 35)
+    hitMeButton.shadowHeight = 4.0
+    hitMeButton.cornerRadius = 2.0
+    hitMeButton.titleLabel!.font = UIFont.boldSystemFontOfSize(18)
+    hitMeButton.buttonColor = UIColor.wetAsphaltColor()
+    hitMeButton.shadowColor = UIColor.midnightBlueColor()
+    hitMeButton.setTitleColor(UIColor.cloudsColor(), forState: .Normal)
+    hitMeButton.setTitleColor(UIColor.concreteColor(), forState: .Highlighted)
+    hitMeButton.setTitle("Help Me Watch", forState: .Normal)
+    hitMeButton.addTarget(self, action: "helpMeWatch", forControlEvents: .TouchUpInside)
+    navigationItem.titleView = hitMeButton
     
     // Initialize dropdown
     dropDownView = LMDropdownView()
-    dropDownView!.blackMaskAlpha = 0.5
+    dropDownView!.blackMaskAlpha = 0.6
     dropDownView!.animationBounceHeight = 0.0
     dropDownView!.closedScale = 1.0
     dropDownView!.animationDuration = 0.3
-    
-    // Label
-    showTitleLabel.text = ""
   }
   
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
     
-    // Get new show
-    hitMe()
+    // Get new show or movie
+    helpMeWatch()
   }
 
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
   }
   
-  func hitMe() {
+  func helpMeWatch() {
     let sharedImageCache = FICImageCache.sharedImageCache()
     
     MBProgressHUD.showHUDAddedTo(self.view, animated: true)
@@ -111,7 +111,7 @@ class MainViewController: UIViewController {
     table!.delegate = self
   }
   
-  func chooseType(sender: UIButton!) {
+  func chooseType(sender: UIBarButtonItem!) {
     if (dropDownView!.isOpen) {
       dropDownView!.hide()
     } else {
@@ -124,11 +124,9 @@ class MainViewController: UIViewController {
       dropDownView!.showInView(self.view!, withContentView: table!, atOrigin: CGPoint(x: 0, y: self.navigationController!.navigationBar.frame.size.height + UIApplication.sharedApplication().statusBarFrame.size.height))
     }
   }
-}
-
-extension MainViewController {
-  @IBAction func refresh(sender: AnyObject) {
-    hitMe()
+  
+  func changeFilters(sender: UIBarButtonItem!) {
+    
   }
 }
 
@@ -160,6 +158,6 @@ extension MainViewController: UITableViewDelegate {
     }
     
     dropDownView!.hide()
-    hitMe()
+    helpMeWatch()
   }
 }

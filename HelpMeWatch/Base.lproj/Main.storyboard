@@ -37,26 +37,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rrA-0W-fT0">
                                 <rect key="frame" x="40" y="84" width="520" height="366"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uX5-Of-eh5" customClass="FUIButton">
-                                <rect key="frame" x="0.0" y="555" width="600" height="45"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="La1-SK-Cno"/>
-                                    <constraint firstAttribute="width" constant="200" id="rIv-DW-6Qf"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Hit Me!">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="rIv-DW-6Qf"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <action selector="refresh:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eYC-8p-OTF"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hhhh" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6i5-nq-1pd">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6i5-nq-1pd">
                                 <rect key="frame" x="40" y="480" width="520" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="84R-Pd-UT6"/>
@@ -71,28 +52,22 @@
                             <constraint firstItem="rrA-0W-fT0" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="4tq-VD-n0s"/>
                             <constraint firstAttribute="trailingMargin" secondItem="rrA-0W-fT0" secondAttribute="trailing" constant="20" id="6Ga-nM-3YW"/>
                             <constraint firstAttribute="height" secondItem="rrA-0W-fT0" secondAttribute="height" multiplier="3:2" id="A4v-jy-f1K"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="uX5-Of-eh5" secondAttribute="bottom" id="ASv-Rb-wgG"/>
                             <constraint firstItem="rrA-0W-fT0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Bgk-u3-fUV"/>
                             <constraint firstItem="rrA-0W-fT0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="IV5-a8-6sS"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="rrA-0W-fT0" secondAttribute="bottom" constant="150" id="Iiw-hz-5QL"/>
                             <constraint firstItem="6i5-nq-1pd" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="UYm-j5-XJH"/>
-                            <constraint firstItem="uX5-Of-eh5" firstAttribute="top" secondItem="rrA-0W-fT0" secondAttribute="bottom" constant="60" id="VtA-Me-C6O"/>
                             <constraint firstAttribute="trailingMargin" secondItem="6i5-nq-1pd" secondAttribute="trailing" constant="20" id="ayG-Ch-2Gw"/>
                             <constraint firstItem="6i5-nq-1pd" firstAttribute="top" secondItem="rrA-0W-fT0" secondAttribute="bottom" constant="30" id="eJ8-GZ-VXG"/>
-                            <constraint firstItem="uX5-Of-eh5" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="fob-HD-nLv"/>
-                            <constraint firstItem="uX5-Of-eh5" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="pic-hb-dlc"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="A4v-jy-f1K"/>
                                 <exclude reference="Bgk-u3-fUV"/>
-                                <exclude reference="VtA-Me-C6O"/>
                             </mask>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="Gbn-9n-Bse"/>
                     <connections>
-                        <outlet property="hitMeButton" destination="uX5-Of-eh5" id="NWH-mw-mDP"/>
                         <outlet property="posterImage" destination="rrA-0W-fT0" id="GDL-Go-ZYQ"/>
                         <outlet property="showTitleLabel" destination="6i5-nq-1pd" id="Dz1-iH-mHZ"/>
                     </connections>
