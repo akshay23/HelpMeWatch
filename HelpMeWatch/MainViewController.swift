@@ -201,7 +201,7 @@ extension MainViewController: UITableViewDelegate {
     
     userOpts.isMovieType = isCurrentTypeMovies
     coreDataStack.saveContext()
-    table!.reloadData()2
+    table!.reloadData()
     dropDownView!.hide()
     helpMeWatch()
   }
