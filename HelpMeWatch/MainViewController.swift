@@ -6,11 +6,12 @@
 //  Copyright © 2016 Akshay Bharath. All rights reserved.
 //
 
-import UIKit
+import CoreData
 import FastImageCache
 import FlatUIKit
 import LMDropdownView
 import MBProgressHUD
+import UIKit
 
 class MainViewController: UIViewController {
 
@@ -21,9 +22,27 @@ class MainViewController: UIViewController {
   var isCurrentTypeMovies = false
   var dropDownView: LMDropdownView?
   var table: UITableView?
+  var coreDataStack: CoreDataStack!
+  var userOpts: UserOptions!
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    // Initialize core data stack
+    coreDataStack = CoreDataStack.sharedInstance
+    if let fetchRequest = coreDataStack.model.fetchRequestTemplateForName("OptionsFetchRequest") {
+      let results = (try! coreDataStack.context.executeFetchRequest(fetchRequest)) as! [UserOptions]
+      if let options = results.first {
+        print("Loaded existing user options")
+        userOpts = options
+        isCurrentTypeMovies = options.isMovieType
+      } else {
+        ("Creating and saving new user options")
+        userOpts = NSEntityDescription.insertNewObjectForEntityForName("UserOptions", inManagedObjectContext: self.coreDataStack.context) as! UserOptions
+        userOpts.isMovieType = false
+        coreDataStack.saveContext()
+      }
+    }
     
     // Set up poster image shadow effect
     posterImage.layer.shadowOpacity = 0.5
@@ -157,6 +176,15 @@ extension MainViewController: UITableViewDataSource {
     cell.textLabel!.font = UIFont.boldFlatFontOfSize(16)
     cell.textLabel!.text = types[indexPath.row]
     
+    // Add accessory as needed
+    if (isCurrentTypeMovies && indexPath.row == 1) {
+      cell.accessoryType = .Checkmark
+    } else if (!isCurrentTypeMovies && indexPath.row == 0) {
+      cell.accessoryType = .Checkmark
+    } else {
+      cell.accessoryType = .None
+    }
+    
     return cell
   }
 }
@@ -171,6 +199,9 @@ extension MainViewController: UITableViewDelegate {
       isCurrentTypeMovies = true
     }
     
+    userOpts.isMovieType = isCurrentTypeMovies
+    coreDataStack.saveContext()
+    table!.reloadData()2
     dropDownView!.hide()
     helpMeWatch()
   }

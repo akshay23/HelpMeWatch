@@ -22,7 +22,7 @@ class Manager: NSObject {
   }
   
   func getRandomMovieDBEntity(isMovie: Bool, requestCompletion: (entity: MovieDBEntity) -> Void) {
-    print("Getting random TV show now")
+    print("Getting random \(isMovie ? "movie" : "TV show") now")
     getRandomPageNumber(isMovie) {
       (page: Int) in
       
