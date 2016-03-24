@@ -28,7 +28,7 @@ class MainViewController: UIViewController {
   var typesTable: UITableView!
   var coreDataStack: CoreDataStack!
   var userOpts: UserOptions!
-  var filterView: UIView!
+  var filterView: FilterView!
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -92,8 +92,8 @@ class MainViewController: UIViewController {
     
     // Rough filter view
     let filterRect = CGRectMake(0, 0, view.bounds.width, 200)
-    filterView = UIView(frame: filterRect)
-    filterView.backgroundColor = UIColor.wetAsphaltColor()
+    filterView = FilterView(frame: filterRect)
+    filterView.view.backgroundColor = UIColor.cloudsColor()
   }
   
   override func viewDidAppear(animated: Bool) {
@@ -131,24 +131,26 @@ class MainViewController: UIViewController {
   
   func helpMeWatch() {
     dropDownView.hide()
-    MBProgressHUD.showHUDAddedTo(self.view, animated: true)
     
-    let sharedImageCache = FICImageCache.sharedImageCache()
-    Manager.sharedInstance.getRandomMovieDBEntity(isCurrentTypeMovies) {
-      (entity: MovieDBEntity) in
-        
-      if let posterImage = entity.getPosterImage()  {
-        sharedImageCache.retrieveImageForEntity(posterImage, withFormatName: KMBigImageFormatName, completionBlock: {
-          (photoInfo, _, image) -> Void in
-            
-          self.posterImage.image = image
+    checkReachabilityWithBlock() {
+      MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+      let sharedImageCache = FICImageCache.sharedImageCache()
+      Manager.sharedInstance.getRandomMovieDBEntity(self.isCurrentTypeMovies) {
+        (entity: MovieDBEntity) in
+          
+        if let posterImage = entity.getPosterImage()  {
+          sharedImageCache.retrieveImageForEntity(posterImage, withFormatName: KMBigImageFormatName, completionBlock: {
+            (photoInfo, _, image) -> Void in
+              
+            self.posterImage.image = image
+            self.showTitleLabel.text = entity.getName()
+            MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+          })
+        } else {
+          self.posterImage.image = UIImage(named: "NoImageFound")
           self.showTitleLabel.text = entity.getName()
           MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-        })
-      } else {
-        self.posterImage.image = UIImage(named: "NoImageFound")
-        self.showTitleLabel.text = entity.getName()
-        MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+        }
       }
     }
   }
