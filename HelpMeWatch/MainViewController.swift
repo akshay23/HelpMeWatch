@@ -94,9 +94,7 @@ class MainViewController: UIViewController {
     
     // Rough filter view
     let filterRect = CGRectMake(0, 0, view.bounds.width, 200)
-    filterView = FilterView(frame: filterRect)
-    filterView.delegate = self
-    filterView.view.backgroundColor = UIColor.cloudsColor()
+    filterView = FilterView(frame: filterRect, delegate: self)
   }
   
   override func viewDidAppear(animated: Bool) {

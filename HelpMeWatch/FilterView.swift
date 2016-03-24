@@ -18,14 +18,19 @@ import UIKit
   @IBOutlet var yearReleasedField: UITextField!
   @IBOutlet var applyButton: FUIButton!
   
-  override init(frame: CGRect) {
+  init(frame: CGRect, delegate: FilterDelegate) {
     super.init(frame: frame)
+    self.delegate = delegate
     setup()
   }
   
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     setup()
+  }
+  
+  override func canBecomeFirstResponder() -> Bool {
+    return true
   }
   
   func loadViewFromNib() -> UIView {
@@ -38,6 +43,7 @@ import UIKit
     // Create view
     view = loadViewFromNib()
     view.frame = bounds
+    view.backgroundColor = UIColor.cloudsColor()
     addSubview(view)
     
     // Setup button
