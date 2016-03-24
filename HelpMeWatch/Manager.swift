@@ -21,13 +21,13 @@ class Manager: NSObject {
     return Static.instance
   }
   
-  func getRandomMovieDBEntity(isMovie: Bool, requestCompletion: (entity: MovieDBEntity) -> Void) {
+  func getRandomMovieDBEntity(isMovie: Bool, entityParams: [String: String]?, requestCompletion: (entity: MovieDBEntity) -> Void) {
     print("Getting random \(isMovie ? "movie" : "TV show") now")
-    getRandomPageNumber(isMovie) {
+    getRandomPageNumber(isMovie, entityParams: entityParams) {
       (page: Int) in
       
       print("Looking at page \(page)")
-      self.getRandomIdFromPage(isMovie, page: page) {
+      self.getRandomIdFromPage(isMovie, page: page, entityParams: entityParams) {
         (id: Int) in
         
         print("Got show id \(id)")
@@ -36,14 +36,14 @@ class Manager: NSObject {
     }
   }
 
-  func getRandomPageNumber(isMovie: Bool, completion: (page: Int) -> Void) {
-    let requestURL = TheMovieDB.Router.GetEntities(isMovie)
-    print("Request URL is \(requestURL.URLRequest.URLString)")
+  func getRandomPageNumber(isMovie: Bool, entityParams: [String: String]?, completion: (page: Int) -> Void) {
+    let requestURL = TheMovieDB.Router.GetEntities(isMovie, entityParams)
     Alamofire.request(requestURL)
       .validate()
       .responseJSON() {
         (result) in
         
+        print("Request URL is \(result.request!.URLRequest.URLString)")
         if (result.result.isSuccess) {
           let json = JSON(result.result.value!)
           let totalPages = json["total_pages"].intValue
@@ -61,14 +61,14 @@ class Manager: NSObject {
     }
   }
   
-  func getRandomIdFromPage(isMovie: Bool, page: Int, completion: (id: Int) -> Void) {
-    let requestUrl = TheMovieDB.Router.GetEntitiesInPage(page, isMovie)
-    print("Request URL is \(requestUrl.URLRequest.URLString)")
+  func getRandomIdFromPage(isMovie: Bool, page: Int, entityParams: [String: String]?, completion: (id: Int) -> Void) {
+    let requestUrl = TheMovieDB.Router.GetEntitiesInPage(page, isMovie, entityParams)
     Alamofire.request(requestUrl)
       .validate()
       .responseJSON() {
         (result) in
         
+        print("Request URL is \(result.request!.URLRequest.URLString)")
         if (result.result.isSuccess) {
           let json = JSON(result.result.value!)
           let results = json["results"]
@@ -86,12 +86,12 @@ class Manager: NSObject {
   
   func getEntityDetailsWithId(id: Int, isMovie: Bool, completion: (entity: MovieDBEntity) -> Void) {
     let requestUrl = TheMovieDB.Router.GetEntityWithId(id, isMovie)
-    print("Request URL is \(requestUrl.URLRequest.URLString)")
     Alamofire.request(requestUrl)
       .validate()
       .responseJSON() {
         (result) in
         
+        print("Request URL is \(result.request!.URLRequest.URLString)")
         if (result.result.isSuccess) {
           let json = JSON(result.result.value!)
           if (isMovie) {

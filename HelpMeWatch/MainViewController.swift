@@ -20,10 +20,12 @@ class MainViewController: UIViewController {
   
   let DropDownWaitTime = 0.5
   let types: [String] = ["TV Shows", "Movies"]
+  var filters: [String: String]?
   var isCurrentTypeMovies = false
   var isFilterViewShowing = false
   var isTypeTableShowing = false
 
+  var hitMeButton: FUIButton!
   var dropDownView: LMDropdownView!
   var typesTable: UITableView!
   var coreDataStack: CoreDataStack!
@@ -77,7 +79,7 @@ class MainViewController: UIViewController {
     navigationItem.setRightBarButtonItem(filterButton, animated: true)
     
     // Add button to center of navi
-    let hitMeButton = FUIButton()
+    hitMeButton = FUIButton()
     hitMeButton.frame = CGRectMake(0, 0, 150, 35)
     hitMeButton.shadowHeight = 4.0
     hitMeButton.cornerRadius = 2.0
@@ -93,6 +95,7 @@ class MainViewController: UIViewController {
     // Rough filter view
     let filterRect = CGRectMake(0, 0, view.bounds.width, 200)
     filterView = FilterView(frame: filterRect)
+    filterView.delegate = self
     filterView.view.backgroundColor = UIColor.cloudsColor()
   }
   
@@ -134,8 +137,12 @@ class MainViewController: UIViewController {
     
     checkReachabilityWithBlock() {
       MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+      self.hitMeButton.enabled = false
+      self.navigationItem.leftBarButtonItem!.enabled = false
+      self.navigationItem.rightBarButtonItem!.enabled = false
+      
       let sharedImageCache = FICImageCache.sharedImageCache()
-      Manager.sharedInstance.getRandomMovieDBEntity(self.isCurrentTypeMovies) {
+      Manager.sharedInstance.getRandomMovieDBEntity(self.isCurrentTypeMovies, entityParams: self.filters) {
         (entity: MovieDBEntity) in
           
         if let posterImage = entity.getPosterImage()  {
@@ -144,11 +151,17 @@ class MainViewController: UIViewController {
               
             self.posterImage.image = image
             self.showTitleLabel.text = entity.getName()
+            self.hitMeButton.enabled = true
+            self.navigationItem.leftBarButtonItem!.enabled = true
+            self.navigationItem.rightBarButtonItem!.enabled = true
             MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
           })
         } else {
           self.posterImage.image = UIImage(named: "NoImageFound")
           self.showTitleLabel.text = entity.getName()
+          self.hitMeButton.enabled = true
+          self.navigationItem.leftBarButtonItem!.enabled = true
+          self.navigationItem.rightBarButtonItem!.enabled = true
           MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
         }
       }
@@ -255,6 +268,21 @@ extension MainViewController: UITableViewDelegate {
     coreDataStack.saveContext()
     typesTable.reloadData()
     dropDownView!.hide()
+    helpMeWatch()
+  }
+}
+
+extension MainViewController: FilterDelegate {
+  func applyFilters() {
+    dropDownView.hide()
+    
+    let yearRel = filterView.yearReleasedField.text!
+    if (yearRel != "") {
+      filters = ["year": yearRel]
+    } else {
+      filters = nil
+    }
+    
     helpMeWatch()
   }
 }
