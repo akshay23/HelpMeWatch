@@ -179,10 +179,13 @@ extension MainViewController: UITableViewDataSource {
     // Add accessory as needed
     if (isCurrentTypeMovies && indexPath.row == 1) {
       cell.accessoryType = .Checkmark
+      cell.selected = true
     } else if (!isCurrentTypeMovies && indexPath.row == 0) {
       cell.accessoryType = .Checkmark
+      cell.selected = true
     } else {
       cell.accessoryType = .None
+      cell.selected = false
     }
     
     return cell

@@ -38,6 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func applicationDidEnterBackground(application: UIApplication) {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    CoreDataStack.sharedInstance.saveContext()
   }
 
   func applicationWillEnterForeground(application: UIApplication) {
@@ -50,8 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func applicationWillTerminate(application: UIApplication) {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    // Saves changes in the application's managed object context before the application terminates.
-    self.saveContext()
+    CoreDataStack.sharedInstance.saveContext()
   }
 
   // MARK: - Core Data stack
@@ -82,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
           dict[NSLocalizedFailureReasonErrorKey] = failureReason
 
-          dict[NSUnderlyingErrorKey] = error as? NSError
+          //dict[NSUnderlyingErrorKey] = error
           let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
           // Replace this with code to handle the error appropriately.
           // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
