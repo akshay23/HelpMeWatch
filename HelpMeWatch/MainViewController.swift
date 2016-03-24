@@ -141,28 +141,35 @@ class MainViewController: UIViewController {
       
       let sharedImageCache = FICImageCache.sharedImageCache()
       Manager.sharedInstance.getRandomMovieDBEntity(self.isCurrentTypeMovies, entityParams: self.filters) {
-        (entity: MovieDBEntity) in
-          
-        if let posterImage = entity.getPosterImage()  {
-          sharedImageCache.retrieveImageForEntity(posterImage, withFormatName: KMBigImageFormatName, completionBlock: {
-            (photoInfo, _, image) -> Void in
+        (entity: MovieDBEntity?) in
+        
+        if let entity = entity {
+          if let posterImage = entity.getPosterImage()  {
+            sharedImageCache.retrieveImageForEntity(posterImage, withFormatName: KMBigImageFormatName, completionBlock: {
+              (photoInfo, _, image) -> Void in
               
-            self.posterImage.image = image
+              self.posterImage.image = image
+              self.showTitleLabel.text = entity.getName()
+              self.hitMeButton.enabled = true
+              self.navigationItem.leftBarButtonItem!.enabled = true
+              self.navigationItem.rightBarButtonItem!.enabled = true
+              MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+            })
+          } else {
+            self.posterImage.image = UIImage(named: "NoImageFound")
             self.showTitleLabel.text = entity.getName()
             self.hitMeButton.enabled = true
             self.navigationItem.leftBarButtonItem!.enabled = true
             self.navigationItem.rightBarButtonItem!.enabled = true
             MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-          })
+          }
         } else {
-          self.posterImage.image = UIImage(named: "NoImageFound")
-          self.showTitleLabel.text = entity.getName()
+          self.showAlertWithMessage("Please change your filter(s) or try again!", title: "No Results", button: "OK")
           self.hitMeButton.enabled = true
           self.navigationItem.leftBarButtonItem!.enabled = true
           self.navigationItem.rightBarButtonItem!.enabled = true
           MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-        }
-      }
+        }}
     }
   }
   

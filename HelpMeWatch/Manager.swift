@@ -21,7 +21,7 @@ class Manager: NSObject {
     return Static.instance
   }
   
-  func getRandomMovieDBEntity(isMovie: Bool, entityParams: [String: String]?, requestCompletion: (entity: MovieDBEntity) -> Void) {
+  func getRandomMovieDBEntity(isMovie: Bool, entityParams: [String: String]?, requestCompletion: (entity: MovieDBEntity?) -> Void) {
     print("Getting random \(isMovie ? "movie" : "TV show") now")
     getRandomPageNumber(isMovie, entityParams: entityParams) {
       (page: Int) in
@@ -31,7 +31,11 @@ class Manager: NSObject {
         (id: Int) in
         
         print("Got show id \(id)")
-        self.getEntityDetailsWithId(id, isMovie: isMovie, completion: requestCompletion)
+        if (id == -1) { // No results
+          requestCompletion(entity: nil)
+        } else {
+          self.getEntityDetailsWithId(id, isMovie: isMovie, completion: requestCompletion)
+        }
       }
     }
   }
@@ -73,8 +77,13 @@ class Manager: NSObject {
           let json = JSON(result.result.value!)
           let results = json["results"]
           if let resultsArray = results.array {
-            let randomIndex = Int(arc4random_uniform(UInt32(resultsArray.count)) + 0)
-            completion(id: resultsArray[randomIndex]["id"].intValue)
+            print("array count is \(resultsArray.count)")
+            if resultsArray.count < 1 {
+              completion(id: -1)
+            } else {
+              let randomIndex = Int(arc4random_uniform(UInt32(resultsArray.count)) + 0)
+              completion(id: resultsArray[randomIndex]["id"].intValue)
+            }
           } else {
             print("No results array present")
           }
@@ -84,7 +93,7 @@ class Manager: NSObject {
     }
   }
   
-  func getEntityDetailsWithId(id: Int, isMovie: Bool, completion: (entity: MovieDBEntity) -> Void) {
+  func getEntityDetailsWithId(id: Int, isMovie: Bool, completion: (entity: MovieDBEntity?) -> Void) {
     let requestUrl = TheMovieDB.Router.GetEntityWithId(id, isMovie)
     Alamofire.request(requestUrl)
       .validate()

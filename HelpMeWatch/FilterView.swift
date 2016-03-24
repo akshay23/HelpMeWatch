@@ -9,7 +9,7 @@
 import FlatUIKit
 import UIKit
 
-@IBDesignable class FilterView: UIView {
+class FilterView: UIView {
   
   let nibName = "FilterView"
   var view: UIView!
@@ -55,9 +55,28 @@ import UIKit
     applyButton.setTitleColor(UIColor.cloudsColor(), forState: .Highlighted)
     applyButton.setTitle("Apply Filters", forState: .Normal)
     applyButton.addTarget(self, action: "applyFilters", forControlEvents: .TouchUpInside)
+    
+    // Hide keyboard on tap
+    let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+    view.addGestureRecognizer(tap)
+    
+    // Delegates
+    yearReleasedField.delegate = self
   }
   
   func applyFilters() {
     delegate.applyFilters()
+  }
+  
+  func dismissKeyboard() {
+    yearReleasedField.resignFirstResponder()
+  }
+}
+
+extension FilterView: UITextFieldDelegate {
+  func textFieldShouldReturn(textField: UITextField) -> Bool {
+    textField.resignFirstResponder()
+    applyFilters()
+    return true
   }
 }
