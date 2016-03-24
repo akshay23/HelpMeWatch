@@ -18,16 +18,17 @@ class MainViewController: UIViewController {
   @IBOutlet var posterImage: UIImageView!
   @IBOutlet var showTitleLabel: UILabel!
   
-  var types: [String] = ["TV Shows", "Movies"]
+  let DropDownWaitTime = 0.5
+  let types: [String] = ["TV Shows", "Movies"]
   var isCurrentTypeMovies = false
   var isFilterViewShowing = false
   var isTypeTableShowing = false
+
   var dropDownView: LMDropdownView!
-  var table: UITableView?
+  var typesTable: UITableView!
   var coreDataStack: CoreDataStack!
   var userOpts: UserOptions!
   var filterView: UIView!
-  let DropDownWaitTime = 0.5
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -48,13 +49,20 @@ class MainViewController: UIViewController {
       }
     }
     
+    // Initialize types table
+    initializeTypesTable()
+    
+    // Initialize dropdown
+    dropDownView = LMDropdownView()
+    dropDownView!.blackMaskAlpha = 0.6
+    dropDownView!.animationBounceHeight = 0.0
+    dropDownView!.closedScale = 1.0
+    dropDownView!.animationDuration = 0.2
+    
     // Set up poster image shadow effect
     posterImage.layer.shadowOpacity = 0.5
     posterImage.layer.shadowRadius = 5
     posterImage.layer.shadowOffset = CGSize(width: 10, height: 10)
-    
-    // Initialize types table
-    initializeTypesTable()
     
     // Add left button navi
     let typeButton = UIBarButtonItem(image: UIImage(named: "ChangeIcon"), style: .Plain, target: self, action: "chooseType:")
@@ -81,13 +89,6 @@ class MainViewController: UIViewController {
     hitMeButton.setTitle("Help Me Watch", forState: .Normal)
     hitMeButton.addTarget(self, action: "helpMeWatch", forControlEvents: .TouchUpInside)
     navigationItem.titleView = hitMeButton
-    
-    // Initialize dropdown
-    dropDownView = LMDropdownView()
-    dropDownView!.blackMaskAlpha = 0.6
-    dropDownView!.animationBounceHeight = 0.0
-    dropDownView!.closedScale = 1.0
-    dropDownView!.animationDuration = 0.2
     
     // Rough filter view
     let filterRect = CGRectMake(0, 0, view.bounds.width, 200)
@@ -120,12 +121,19 @@ class MainViewController: UIViewController {
     }
   }
   
+  func initializeTypesTable() {
+    typesTable = UITableView()
+    typesTable.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+    typesTable.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 88)
+    typesTable.dataSource = self
+    typesTable.delegate = self
+  }
+  
   func helpMeWatch() {
-    let sharedImageCache = FICImageCache.sharedImageCache()
-    
     dropDownView.hide()
     MBProgressHUD.showHUDAddedTo(self.view, animated: true)
     
+    let sharedImageCache = FICImageCache.sharedImageCache()
     Manager.sharedInstance.getRandomMovieDBEntity(isCurrentTypeMovies) {
       (entity: MovieDBEntity) in
         
@@ -143,14 +151,6 @@ class MainViewController: UIViewController {
         MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
       }
     }
-  }
-  
-  func initializeTypesTable() {
-    table = UITableView()
-    table!.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
-    table!.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 88)
-    table!.dataSource = self
-    table!.delegate = self
   }
   
   func chooseType(sender: UIBarButtonItem!) {
@@ -175,12 +175,12 @@ class MainViewController: UIViewController {
   
   func selectRowAndShowTable() {
     if (isCurrentTypeMovies) {
-      table!.selectRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0), animated: false, scrollPosition: .None)
+      typesTable.selectRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0), animated: false, scrollPosition: .None)
     } else {
-      table!.selectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: false, scrollPosition: .None)
+      typesTable.selectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: false, scrollPosition: .None)
     }
     
-    dropDownView.showInView(self.view, withContentView: table!, atOrigin: CGPoint(x: 0, y: navigationController!.navigationBar.frame.size.height + UIApplication.sharedApplication().statusBarFrame.size.height))
+    dropDownView.showInView(self.view, withContentView: typesTable, atOrigin: CGPoint(x: 0, y: navigationController!.navigationBar.frame.size.height + UIApplication.sharedApplication().statusBarFrame.size.height))
     isTypeTableShowing = true
   }
   
@@ -251,7 +251,7 @@ extension MainViewController: UITableViewDelegate {
     
     userOpts.isMovieType = isCurrentTypeMovies
     coreDataStack.saveContext()
-    table!.reloadData()
+    typesTable.reloadData()
     dropDownView!.hide()
     helpMeWatch()
   }
