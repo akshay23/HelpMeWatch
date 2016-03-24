@@ -20,10 +20,14 @@ class MainViewController: UIViewController {
   
   var types: [String] = ["TV Shows", "Movies"]
   var isCurrentTypeMovies = false
-  var dropDownView: LMDropdownView?
+  var isFilterViewShowing = false
+  var isTypeTableShowing = false
+  var dropDownView: LMDropdownView!
   var table: UITableView?
   var coreDataStack: CoreDataStack!
   var userOpts: UserOptions!
+  var filterView: UIView!
+  let DropDownWaitTime = 0.5
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -83,7 +87,12 @@ class MainViewController: UIViewController {
     dropDownView!.blackMaskAlpha = 0.6
     dropDownView!.animationBounceHeight = 0.0
     dropDownView!.closedScale = 1.0
-    dropDownView!.animationDuration = 0.3
+    dropDownView!.animationDuration = 0.2
+    
+    // Rough filter view
+    let filterRect = CGRectMake(0, 0, view.bounds.width, 200)
+    filterView = UIView(frame: filterRect)
+    filterView.backgroundColor = UIColor.wetAsphaltColor()
   }
   
   override func viewDidAppear(animated: Bool) {
@@ -114,6 +123,7 @@ class MainViewController: UIViewController {
   func helpMeWatch() {
     let sharedImageCache = FICImageCache.sharedImageCache()
     
+    dropDownView.hide()
     MBProgressHUD.showHUDAddedTo(self.view, animated: true)
     
     Manager.sharedInstance.getRandomMovieDBEntity(isCurrentTypeMovies) {
@@ -139,27 +149,64 @@ class MainViewController: UIViewController {
     table = UITableView()
     table!.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
     table!.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 88)
-    table!.backgroundColor = UIColor(red: 250.0/255.0, green: 250.0/255.0, blue: 250.0/255.0, alpha: 1.0)
     table!.dataSource = self
     table!.delegate = self
   }
   
   func chooseType(sender: UIBarButtonItem!) {
-    if (dropDownView!.isOpen) {
-      dropDownView!.hide()
-    } else {
-      if (isCurrentTypeMovies) {
-        table!.selectRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0), animated: false, scrollPosition: .None)
+    if (dropDownView.isOpen) {
+      dropDownView.hide()
+      if (isFilterViewShowing) {
+        // Need to sleep for a little before showing table due the design of LMDropdownView
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+          NSThread.sleepForTimeInterval(self.DropDownWaitTime)
+          dispatch_async(dispatch_get_main_queue()) {
+            self.isFilterViewShowing = false
+            self.selectRowAndShowTable()
+          }
+        }
       } else {
-        table!.selectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: false, scrollPosition: .None)
+        isTypeTableShowing = false
       }
-      
-      dropDownView!.showInView(self.view!, withContentView: table!, atOrigin: CGPoint(x: 0, y: self.navigationController!.navigationBar.frame.size.height + UIApplication.sharedApplication().statusBarFrame.size.height))
+    } else {
+      selectRowAndShowTable()
     }
   }
   
-  func changeFilters(sender: UIBarButtonItem!) {
+  func selectRowAndShowTable() {
+    if (isCurrentTypeMovies) {
+      table!.selectRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0), animated: false, scrollPosition: .None)
+    } else {
+      table!.selectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: false, scrollPosition: .None)
+    }
     
+    dropDownView.showInView(self.view, withContentView: table!, atOrigin: CGPoint(x: 0, y: navigationController!.navigationBar.frame.size.height + UIApplication.sharedApplication().statusBarFrame.size.height))
+    isTypeTableShowing = true
+  }
+  
+  func changeFilters(sender: UIBarButtonItem!) {
+    if (dropDownView.isOpen) {
+      dropDownView.hide()
+      if (isTypeTableShowing) {
+        // Need to sleep for a little before showing filter view due the design of LMDropdownView
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+          NSThread.sleepForTimeInterval(self.DropDownWaitTime)
+          dispatch_async(dispatch_get_main_queue()) {
+            self.isTypeTableShowing = false
+            self.showFilterView()
+          }
+        }
+      } else {
+        isFilterViewShowing = false
+      }
+    } else {
+      showFilterView()
+    }
+  }
+  
+  func showFilterView() {
+    dropDownView.showInView(self.view, withContentView: filterView, atOrigin: CGPoint(x: 0, y: navigationController!.navigationBar.frame.size.height + UIApplication.sharedApplication().statusBarFrame.size.height))
+    isFilterViewShowing = true
   }
 }
 
