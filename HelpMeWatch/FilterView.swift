@@ -13,16 +13,17 @@ import UIKit
 class FilterView: UIView {
   
   let nibName = "FilterView"
-  var filters: [String: String]?
+  var filters: [String: String]!
   var view: UIView!
   var delegate: FilterDelegate!
   var genreDropDown: DropDown!
+  var genres: [String: String]!
+  var currentGenreId: String!
   
   @IBOutlet var dropDownView: UIView!
   @IBOutlet var changeGenreButton: FUIButton!
   @IBOutlet var yearReleasedLabel: UILabel!
   @IBOutlet var yearReleasedField: UITextField!
-  
   @IBOutlet var applyButton: FUIButton!
   
   init(frame: CGRect, delegate: FilterDelegate) {
@@ -48,6 +49,7 @@ class FilterView: UIView {
   
   func setup() {
     // Create view
+    filters = [:]
     view = loadViewFromNib()
     view.frame = bounds
     view.backgroundColor = UIColor.cloudsColor()
@@ -63,35 +65,63 @@ class FilterView: UIView {
     applyButton.setTitle("Apply Filters", forState: .Normal)
     applyButton.addTarget(self, action: "applyFilters", forControlEvents: .TouchUpInside)
     
+    // Setup genre dd view button
+    dropDownView.backgroundColor = UIColor.cloudsColor()
+    changeGenreButton.buttonColor = UIColor.cloudsColor()
+    changeGenreButton.cornerRadius = 2.0
+    changeGenreButton.layer.borderWidth = 1.0
+    
     // Hide keyboard on tap
     let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
     view.addGestureRecognizer(tap)
     
-    // Load genres dropdown
+    // Modify genres dropdown
     genreDropDown = DropDown()
     genreDropDown.anchorView = dropDownView
-    genreDropDown.width = dropDownView.bounds.width
     genreDropDown.direction = .Bottom
     genreDropDown.dismissMode = .Automatic
-    genreDropDown.dataSource = ["ALL", "Action", "Comedy"]  //TODO
     genreDropDown.selectionAction = { (index, item) in
       self.changeGenreButton.setTitle(item, forState: .Normal)
+      if (item == "ALL") {
+        self.currentGenreId = "-1"
+      } else {
+        // Reverse lookup
+        self.currentGenreId = (self.genres as NSDictionary).allKeysForObject(item).first as! String
+      }
     }
     
     // Delegates
     yearReleasedField.delegate = self
+    
+    // Update UI
+    updateUI()
   }
   
   func dismissKeyboard() {
     yearReleasedField.resignFirstResponder()
   }
   
+  func viewIsClosing() {
+    if (currentGenreId == "-1") {
+      genreDropDown.selectRowAtIndex(0)
+      changeGenreButton.setTitle("ALL", forState: .Normal)
+    } else {
+      
+    }
+  }
+  
   func applyFilters() {
     if (delegate.isTypeSetToMovies()) {
       if (yearReleasedField.text! != "") {
-        filters = ["year": yearReleasedField.text!]
+        filters["year"] = yearReleasedField.text!
       } else {
-        filters?.removeValueForKey("year")
+        filters.removeValueForKey("year")
+      }
+      
+      if (currentGenreId != "-1") {
+        filters["genre"] = currentGenreId
+      } else {
+        filters.removeValueForKey("genre")
       }
     } else {
       
@@ -102,6 +132,26 @@ class FilterView: UIView {
   }
   
   func updateUI() {
+    // Get genres 
+    Manager.sharedInstance.getGenres(delegate.isTypeSetToMovies()) {
+      (genres: [String: String]) in
+      
+      var ddList: [String] = ["ALL"]
+      var longest = 3
+      for (_, value) in genres {
+        if (value.characters.count > longest) {
+          longest = value.characters.count
+        }
+        ddList.append(value)
+      }
+      self.genreDropDown.dataSource = ddList
+      self.genreDropDown.width = CGFloat(longest * 10)
+      self.genreDropDown.selectRowAtIndex(0)
+      self.changeGenreButton.setTitle("ALL", forState: .Normal)
+      self.currentGenreId = "-1"
+      self.genres = genres
+    }
+    
     if (delegate.isTypeSetToMovies()) {
       print("Delegate's type is set to Movies")
       yearReleasedField.hidden = false

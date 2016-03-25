@@ -113,4 +113,29 @@ class Manager: NSObject {
         }
     }
   }
+  
+  func getGenres(isMovie: Bool, requestCompletion: (genres: [String: String]) -> Void) {
+    let requestUrl = TheMovieDB.Router.GetGenres(isMovie)
+    Alamofire.request(requestUrl)
+      .validate()
+      .responseJSON() {
+        (result) in
+        
+        print("Request URL is \(result.request!.URLRequest.URLString)")
+        var genreList: [String: String] = [:]
+        if (result.result.isSuccess) {
+          let json = JSON(result.result.value!)
+          if let genres = json["genres"].array {
+            for (genre) in genres {
+              genreList[genre["id"].stringValue] = genre["name"].stringValue
+            }
+          }
+        } else {
+          print("Coudn't get genres")
+          print(result.debugDescription)
+        }
+  
+        requestCompletion(genres: genreList)
+    }
+  }
 }

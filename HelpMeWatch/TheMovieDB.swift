@@ -17,6 +17,7 @@ struct TheMovieDB {
     case GetEntities(Bool, [String: String]?)
     case GetEntitiesInPage(Int, Bool, [String: String]?)
     case GetEntityWithId(Int, Bool)
+    case GetGenres(Bool)
     
     var URLRequest: NSMutableURLRequest {
       let (path, parameters): (String, [String: AnyObject]) = {
@@ -47,6 +48,12 @@ struct TheMovieDB {
           let type: String = isMovie ? "movie" : "tv"
           let params: [String: AnyObject] = ["api_key": Router.apiKey]
           let pathString: String = "/3/\(type)/\(id)"
+          return (pathString, params)
+          
+        case .GetGenres(let isMovie):
+          let type: String = isMovie ? "movie" : "tv"
+          let params: [String: AnyObject] = ["api_key": Router.apiKey]
+          let pathString: String = "/3/genre/\(type)/list"
           return (pathString, params)
       }
       }()

@@ -218,6 +218,7 @@ class MainViewController: UIViewController {
         }
       } else {
         isFilterViewShowing = false
+        
       }
     } else {
       showFilterView()
@@ -225,7 +226,6 @@ class MainViewController: UIViewController {
   }
   
   func showFilterView() {
-    filterView.updateUI()
     dropDownView.showInView(self.view, withContentView: filterView, atOrigin: CGPoint(x: 0, y: navigationController!.navigationBar.frame.size.height + UIApplication.sharedApplication().statusBarFrame.size.height))
     isFilterViewShowing = true
   }
@@ -273,6 +273,7 @@ extension MainViewController: UITableViewDelegate {
     userOpts.isMovieType = isCurrentTypeMovies
     coreDataStack.saveContext()
     typesTable.reloadData()
+    filterView.updateUI()
     dropDownView!.hide()
     helpMeWatch()
   }
