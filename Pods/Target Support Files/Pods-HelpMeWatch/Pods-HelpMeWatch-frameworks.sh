@@ -86,6 +86,7 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-HelpMeWatch/AFNetworking.framework"
   install_framework "Pods-HelpMeWatch/Alamofire.framework"
+  install_framework "Pods-HelpMeWatch/DropDown.framework"
   install_framework "Pods-HelpMeWatch/FastImageCache.framework"
   install_framework "Pods-HelpMeWatch/FlatUIKit.framework"
   install_framework "Pods-HelpMeWatch/LMDropdownView.framework"
@@ -95,6 +96,7 @@ fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-HelpMeWatch/AFNetworking.framework"
   install_framework "Pods-HelpMeWatch/Alamofire.framework"
+  install_framework "Pods-HelpMeWatch/DropDown.framework"
   install_framework "Pods-HelpMeWatch/FastImageCache.framework"
   install_framework "Pods-HelpMeWatch/FlatUIKit.framework"
   install_framework "Pods-HelpMeWatch/LMDropdownView.framework"

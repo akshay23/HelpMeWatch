@@ -9,5 +9,6 @@
 import Foundation
 
 protocol FilterDelegate {
+  func isTypeSetToMovies() -> Bool
   func applyFilters()
 }

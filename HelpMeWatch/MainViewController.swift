@@ -20,7 +20,6 @@ class MainViewController: UIViewController {
   
   let DropDownWaitTime = 0.5
   let types: [String] = ["TV Shows", "Movies"]
-  var filters: [String: String]?
   var isCurrentTypeMovies = false
   var isFilterViewShowing = false
   var isTypeTableShowing = false
@@ -140,7 +139,7 @@ class MainViewController: UIViewController {
       self.navigationItem.rightBarButtonItem!.enabled = false
       
       let sharedImageCache = FICImageCache.sharedImageCache()
-      Manager.sharedInstance.getRandomMovieDBEntity(self.isCurrentTypeMovies, entityParams: self.filters) {
+      Manager.sharedInstance.getRandomMovieDBEntity(self.isCurrentTypeMovies, entityParams: self.filterView.filters) {
         (entity: MovieDBEntity?) in
         
         if let entity = entity {
@@ -169,7 +168,8 @@ class MainViewController: UIViewController {
           self.navigationItem.leftBarButtonItem!.enabled = true
           self.navigationItem.rightBarButtonItem!.enabled = true
           MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-        }}
+        }
+      }
     }
   }
   
@@ -225,6 +225,7 @@ class MainViewController: UIViewController {
   }
   
   func showFilterView() {
+    filterView.updateUI()
     dropDownView.showInView(self.view, withContentView: filterView, atOrigin: CGPoint(x: 0, y: navigationController!.navigationBar.frame.size.height + UIApplication.sharedApplication().statusBarFrame.size.height))
     isFilterViewShowing = true
   }
@@ -278,16 +279,12 @@ extension MainViewController: UITableViewDelegate {
 }
 
 extension MainViewController: FilterDelegate {
+  func isTypeSetToMovies() -> Bool {
+    return isCurrentTypeMovies
+  }
+
   func applyFilters() {
     dropDownView.hide()
-    
-    let yearRel = filterView.yearReleasedField.text!
-    if (yearRel != "") {
-      filters = ["year": yearRel]
-    } else {
-      filters = nil
-    }
-    
     helpMeWatch()
   }
 }

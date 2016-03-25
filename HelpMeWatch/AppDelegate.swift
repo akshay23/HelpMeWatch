@@ -6,12 +6,13 @@
 //  Copyright © 2016 Akshay Bharath. All rights reserved.
 //
 
-import UIKit
-import CoreData
-import FastImageCache
-import Fabric
-import Crashlytics
 import Alamofire
+import CoreData
+import Crashlytics
+import DropDown
+import Fabric
+import FastImageCache
+import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,6 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // Instantiate fastimagecache
     FastImageCacheHelper.setUp(self)
+    
+    // Dropdown stuff
+    DropDown.startListeningToKeyboard()
     
     // Setup Fabric
     //Fabric.with([Crashlytics.self])
