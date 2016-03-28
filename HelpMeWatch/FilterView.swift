@@ -19,6 +19,7 @@ class FilterView: UIView {
   var genreDropDown: DropDown!
   var genres: [String: String]!
   var currentGenreId: String!
+  var selectedGenreId: String!
   
   @IBOutlet var dropDownView: UIView!
   @IBOutlet var changeGenreButton: FUIButton!
@@ -83,10 +84,10 @@ class FilterView: UIView {
     genreDropDown.selectionAction = { (index, item) in
       self.changeGenreButton.setTitle(item, forState: .Normal)
       if (item == "ALL") {
-        self.currentGenreId = "-1"
+        self.selectedGenreId = "-1"
       } else {
         // Reverse lookup
-        self.currentGenreId = (self.genres as NSDictionary).allKeysForObject(item).first as! String
+        self.selectedGenreId = (self.genres as NSDictionary).allKeysForObject(item).first as! String
       }
     }
     
@@ -106,11 +107,15 @@ class FilterView: UIView {
       genreDropDown.selectRowAtIndex(0)
       changeGenreButton.setTitle("ALL", forState: .Normal)
     } else {
-      
+      let btnText = genres[currentGenreId]
+      changeGenreButton.setTitle(btnText, forState: .Normal)
+      genreDropDown.selectRowAtIndex(genreDropDown.dataSource.indexOf(btnText!))
     }
   }
   
   func applyFilters() {
+    currentGenreId = selectedGenreId
+    
     if (delegate.isTypeSetToMovies()) {
       if (yearReleasedField.text! != "") {
         filters["year"] = yearReleasedField.text!
@@ -149,6 +154,7 @@ class FilterView: UIView {
       self.genreDropDown.selectRowAtIndex(0)
       self.changeGenreButton.setTitle("ALL", forState: .Normal)
       self.currentGenreId = "-1"
+      self.selectedGenreId = "-1"
       self.genres = genres
     }
     

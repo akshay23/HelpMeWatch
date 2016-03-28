@@ -177,6 +177,7 @@ class MainViewController: UIViewController {
     if (dropDownView.isOpen) {
       dropDownView.hide()
       if (isFilterViewShowing) {
+        filterView.viewIsClosing()
         // Need to sleep for a little before showing table due the design of LMDropdownView
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
           NSThread.sleepForTimeInterval(self.DropDownWaitTime)
@@ -218,7 +219,7 @@ class MainViewController: UIViewController {
         }
       } else {
         isFilterViewShowing = false
-        
+        filterView.viewIsClosing()
       }
     } else {
       showFilterView()
