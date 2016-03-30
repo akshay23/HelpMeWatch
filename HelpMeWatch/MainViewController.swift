@@ -130,7 +130,15 @@ class MainViewController: UIViewController {
   }
   
   func helpMeWatch() {
-    dropDownView.hide()
+    if (dropDownView.isOpen) {
+      if (isFilterViewShowing) {
+        filterView.viewIsClosing()
+        isFilterViewShowing = false
+      } else if (isTypeTableShowing) {
+        isTypeTableShowing = false
+      }
+      dropDownView.hide()
+    }
     
     checkReachabilityWithBlock() {
       MBProgressHUD.showHUDAddedTo(self.view, animated: true)

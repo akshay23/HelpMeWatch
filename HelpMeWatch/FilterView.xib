@@ -8,7 +8,9 @@
             <connections>
                 <outlet property="applyButton" destination="a2Z-n3-Wyl" id="7rR-se-nFN"/>
                 <outlet property="changeGenreButton" destination="ajh-sH-hLX" id="Nts-UB-wXW"/>
+                <outlet property="changeLangButton" destination="UQe-cl-BkF" id="Nvl-yj-oQh"/>
                 <outlet property="dropDownView" destination="PbE-JP-o21" id="4qS-dv-yJr"/>
+                <outlet property="langDropDownView" destination="3c7-Lr-Ppc" id="xdh-WZ-zoo"/>
                 <outlet property="yearReleasedField" destination="IVd-AI-Qty" id="fgP-Bk-I10"/>
                 <outlet property="yearReleasedLabel" destination="3Vb-Hq-2Gp" id="DJ7-aV-z8k"/>
             </connections>
@@ -19,13 +21,17 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Year Released:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Vb-Hq-2Gp">
-                    <rect key="frame" x="416" y="10" width="113" height="20.5"/>
+                    <rect key="frame" x="5" y="50" width="113" height="20.5"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="113" id="1Kh-wJ-8ez"/>
+                        <constraint firstAttribute="height" constant="20.5" id="HeS-zP-x5H"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IVd-AI-Qty">
-                    <rect key="frame" x="532" y="6" width="63" height="30"/>
+                    <rect key="frame" x="121" y="46" width="63" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="jYX-i0-rtL"/>
                         <constraint firstAttribute="width" constant="63" id="pK9-iI-w27"/>
@@ -57,24 +63,18 @@
                         </mask>
                     </variation>
                 </label>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PbE-JP-o21">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PbE-JP-o21" userLabel="Genre DD View">
                     <rect key="frame" x="59" y="6" width="115" height="30"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ajh-sH-hLX" customClass="FUIButton">
                             <rect key="frame" x="0.0" y="0.0" width="115" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="GpK-64-pIf"/>
-                                <constraint firstAttribute="width" constant="105" id="s1t-9F-HmD"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                             <state key="normal" title="ALL">
                                 <color key="titleColor" red="0.074052212181866084" green="0.64248830063345186" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="s1t-9F-HmD"/>
-                                </mask>
-                            </variation>
                             <connections>
                                 <action selector="changeGenre:" destination="-1" eventType="touchUpInside" id="XyQ-M8-nav"/>
                             </connections>
@@ -85,40 +85,60 @@
                         <constraint firstItem="ajh-sH-hLX" firstAttribute="centerY" secondItem="PbE-JP-o21" secondAttribute="centerY" id="CWD-Fl-wCM"/>
                         <constraint firstItem="ajh-sH-hLX" firstAttribute="centerX" secondItem="PbE-JP-o21" secondAttribute="centerX" id="O9T-uc-aY2"/>
                         <constraint firstItem="ajh-sH-hLX" firstAttribute="width" secondItem="PbE-JP-o21" secondAttribute="width" id="TZC-C1-sZT"/>
-                        <constraint firstItem="ajh-sH-hLX" firstAttribute="width" secondItem="PbE-JP-o21" secondAttribute="width" id="Yq1-Nb-tIG"/>
                         <constraint firstAttribute="height" constant="30" id="tCr-4E-a0E"/>
                         <constraint firstAttribute="width" constant="115" id="y7f-ia-oh8"/>
                     </constraints>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="Yq1-Nb-tIG"/>
-                        </mask>
-                    </variation>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Language:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6UV-yB-AFu">
+                    <rect key="frame" x="431" y="10" width="80.5" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3c7-Lr-Ppc" userLabel="Language DD View">
+                    <rect key="frame" x="515" y="6" width="80" height="30"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UQe-cl-BkF" userLabel="Change Lang Button" customClass="FUIButton">
+                            <rect key="frame" x="0.0" y="0.0" width="80" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="dR1-Xt-cF9"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                            <state key="normal" title="ALL">
+                                <color key="titleColor" red="0.074052212179999993" green="0.64248830059999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="changeLanguage:" destination="-1" eventType="touchUpInside" id="yRV-Fr-9fK"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="0Xr-2i-hVT"/>
+                        <constraint firstItem="UQe-cl-BkF" firstAttribute="centerX" secondItem="3c7-Lr-Ppc" secondAttribute="centerX" id="9em-W6-Irh"/>
+                        <constraint firstAttribute="width" constant="80" id="DIT-Om-eHz"/>
+                        <constraint firstItem="UQe-cl-BkF" firstAttribute="centerY" secondItem="3c7-Lr-Ppc" secondAttribute="centerY" id="PvT-1b-BFG"/>
+                        <constraint firstItem="UQe-cl-BkF" firstAttribute="width" secondItem="3c7-Lr-Ppc" secondAttribute="width" id="Y4n-mZ-TnH"/>
+                    </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="y5x-05-EfT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="0IY-sG-iXd"/>
-                <constraint firstItem="3Vb-Hq-2Gp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="1dV-uD-Jvu"/>
-                <constraint firstItem="3Vb-Hq-2Gp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="9uE-o7-kGt"/>
-                <constraint firstItem="3Vb-Hq-2Gp" firstAttribute="leading" secondItem="PbE-JP-o21" secondAttribute="trailing" constant="5" id="Cld-z3-HOC"/>
+                <constraint firstItem="IVd-AI-Qty" firstAttribute="leading" secondItem="3Vb-Hq-2Gp" secondAttribute="trailing" constant="3" id="80x-aG-7Js"/>
+                <constraint firstItem="3Vb-Hq-2Gp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="Bk8-RR-0uU"/>
+                <constraint firstItem="3Vb-Hq-2Gp" firstAttribute="top" secondItem="y5x-05-EfT" secondAttribute="bottom" constant="20" id="DYZ-OJ-ue0"/>
+                <constraint firstAttribute="trailing" secondItem="3c7-Lr-Ppc" secondAttribute="trailing" constant="5" id="FPa-Ok-zRo"/>
                 <constraint firstItem="y5x-05-EfT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="IKc-Oi-lMS"/>
-                <constraint firstItem="IVd-AI-Qty" firstAttribute="leading" secondItem="3Vb-Hq-2Gp" secondAttribute="trailing" constant="5" id="KVx-ZS-rKk"/>
-                <constraint firstAttribute="trailing" secondItem="IVd-AI-Qty" secondAttribute="trailing" constant="5" id="MKE-hb-um8"/>
                 <constraint firstItem="a2Z-n3-Wyl" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="NoX-zm-zWG"/>
+                <constraint firstItem="3c7-Lr-Ppc" firstAttribute="leading" secondItem="6UV-yB-AFu" secondAttribute="trailing" constant="3" id="TZd-3A-yxd"/>
+                <constraint firstItem="3c7-Lr-Ppc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="6" id="UvJ-Xs-TAW"/>
                 <constraint firstAttribute="bottom" secondItem="a2Z-n3-Wyl" secondAttribute="bottom" constant="5" id="VR2-Jw-5WY"/>
                 <constraint firstItem="PbE-JP-o21" firstAttribute="leading" secondItem="y5x-05-EfT" secondAttribute="trailing" constant="3" id="swO-me-bDy"/>
-                <constraint firstItem="IVd-AI-Qty" firstAttribute="leading" secondItem="3Vb-Hq-2Gp" secondAttribute="trailing" constant="3" id="uUe-f6-zmz"/>
                 <constraint firstItem="PbE-JP-o21" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="6" id="vVu-Xi-zZB"/>
-                <constraint firstItem="IVd-AI-Qty" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="6" id="xR0-cE-I2o"/>
+                <constraint firstItem="6UV-yB-AFu" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="xVr-87-IA7"/>
+                <constraint firstItem="IVd-AI-Qty" firstAttribute="centerY" secondItem="3Vb-Hq-2Gp" secondAttribute="centerY" id="zzt-kT-dE6"/>
             </constraints>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="9uE-o7-kGt"/>
-                    <exclude reference="Cld-z3-HOC"/>
-                    <exclude reference="KVx-ZS-rKk"/>
-                </mask>
-            </variation>
             <point key="canvasLocation" x="475" y="378"/>
         </view>
     </objects>

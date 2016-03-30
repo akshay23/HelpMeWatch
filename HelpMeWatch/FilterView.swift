@@ -13,16 +13,24 @@ import UIKit
 class FilterView: UIView {
   
   let nibName = "FilterView"
-  var filters: [String: String]!
   var view: UIView!
   var delegate: FilterDelegate!
   var genreDropDown: DropDown!
+  var languageDropDown: DropDown!
+
+  var filters: [String: String] = [:]
   var genres: [String: String]!
+  var languages: [String] = ["ALL", "DE", "EN", "ES", "FR", "HI", "IT", "JA", "TA", "ZH"]
+  
   var currentGenreId: String!
   var selectedGenreId: String!
+  var currentLang: String!
+  var selectedLang: String!
   
   @IBOutlet var dropDownView: UIView!
+  @IBOutlet var langDropDownView: UIView!
   @IBOutlet var changeGenreButton: FUIButton!
+  @IBOutlet var changeLangButton: FUIButton!
   @IBOutlet var yearReleasedLabel: UILabel!
   @IBOutlet var yearReleasedField: UITextField!
   @IBOutlet var applyButton: FUIButton!
@@ -50,7 +58,6 @@ class FilterView: UIView {
   
   func setup() {
     // Create view
-    filters = [:]
     view = loadViewFromNib()
     view.frame = bounds
     view.backgroundColor = UIColor.cloudsColor()
@@ -72,11 +79,17 @@ class FilterView: UIView {
     changeGenreButton.cornerRadius = 2.0
     changeGenreButton.layer.borderWidth = 1.0
     
+    // Setup language dd view button
+    langDropDownView.backgroundColor = UIColor.cloudsColor()
+    changeLangButton.buttonColor = UIColor.cloudsColor()
+    changeLangButton.cornerRadius = 2.0
+    changeLangButton.layer.borderWidth = 1.0
+    
     // Hide keyboard on tap
     let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
     view.addGestureRecognizer(tap)
     
-    // Modify genres dropdown
+    // Setup genres dropdown
     genreDropDown = DropDown()
     genreDropDown.anchorView = dropDownView
     genreDropDown.direction = .Bottom
@@ -88,6 +101,22 @@ class FilterView: UIView {
       } else {
         // Reverse lookup
         self.selectedGenreId = (self.genres as NSDictionary).allKeysForObject(item).first as! String
+      }
+    }
+    
+    // Setup language dropdown
+    languageDropDown = DropDown()
+    languageDropDown.anchorView = langDropDownView
+    languageDropDown.direction = .Bottom
+    languageDropDown.dismissMode = .Automatic
+    languageDropDown.dataSource = languages
+    languageDropDown.width = languageDropDown.anchorView!.frame.width
+    languageDropDown.selectionAction = { (index, item) in
+      self.changeLangButton.setTitle(item.uppercaseString, forState: .Normal)
+      if (item == "ALL") {
+        self.selectedLang = ""
+      } else {
+        self.selectedLang = item.lowercaseString
       }
     }
     
@@ -111,10 +140,31 @@ class FilterView: UIView {
       changeGenreButton.setTitle(btnText, forState: .Normal)
       genreDropDown.selectRowAtIndex(genreDropDown.dataSource.indexOf(btnText!))
     }
+    
+    if (currentLang == "") {
+      languageDropDown.selectRowAtIndex(0)
+      changeLangButton.setTitle("ALL", forState: .Normal)
+    } else {
+      let btnText = currentLang
+      changeLangButton.setTitle(btnText.uppercaseString, forState: .Normal)
+      languageDropDown.selectRowAtIndex(genreDropDown.dataSource.indexOf(btnText))
+    }
   }
   
   func applyFilters() {
     currentGenreId = selectedGenreId
+    if (currentGenreId != "-1") {
+      filters["genre"] = currentGenreId
+    } else {
+      filters.removeValueForKey("genre")
+    }
+    
+    currentLang = selectedLang
+    if (currentLang != "") {
+      filters["language"] = currentLang
+    } else {
+      filters.removeValueForKey("language")
+    }
     
     if (delegate.isTypeSetToMovies()) {
       if (yearReleasedField.text! != "") {
@@ -122,14 +172,7 @@ class FilterView: UIView {
       } else {
         filters.removeValueForKey("year")
       }
-      
-      if (currentGenreId != "-1") {
-        filters["genre"] = currentGenreId
-      } else {
-        filters.removeValueForKey("genre")
-      }
     } else {
-      
     }
 
     dismissKeyboard()
@@ -158,6 +201,12 @@ class FilterView: UIView {
       self.genres = genres
     }
     
+    // Reset languages
+    selectedLang = ""
+    currentLang = ""
+    languageDropDown.selectRowAtIndex(0)
+    changeLangButton.setTitle("ALL", forState: .Normal)
+    
     if (delegate.isTypeSetToMovies()) {
       print("Delegate's type is set to Movies")
       yearReleasedField.hidden = false
@@ -173,6 +222,10 @@ class FilterView: UIView {
 extension FilterView {
   @IBAction func changeGenre(sender: AnyObject) {
     genreDropDown.show()
+  }
+  
+  @IBAction func changeLanguage(sender: AnyObject) {
+    languageDropDown.show()
   }
 }
 
